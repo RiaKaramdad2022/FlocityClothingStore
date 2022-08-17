@@ -1,8 +1,20 @@
 using FlocityClothingStore.Server.Data;
+using FlocityClothingStore.Server.Services.Category;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using FlocityClothingStore.Server.Services.Cart;
+using FlocityClothingStore.Server.Services.Customer;
+using FlocityClothingStore.Server.Services.Product;
+using FlocityClothingStore.Server.Services.Transaction;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
