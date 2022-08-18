@@ -12,9 +12,6 @@ namespace FlocityClothingStore.Shared.Models.Cart
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
-        public List<ProductListItem> Products { get; set; } = new List<ProductListItem>();
-        public string CustomerFullName { get; set; }
-        public string CustomerEmail { get; set; }
 
     }
 }

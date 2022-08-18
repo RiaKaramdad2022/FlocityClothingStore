@@ -12,7 +12,10 @@ namespace FlocityClothingStore.Server.Models
         public int ProductId { get; set; }
 
         public string Quantity { get; set; }
+        public string Size { get; set; }
 
+        public virtual Product Product { get; set; }
+        public virtual Customer Customer { get; set; }
 
     }
 

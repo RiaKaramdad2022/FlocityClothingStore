@@ -7,7 +7,7 @@ namespace FlocityClothingStore.Server.Services.Cart
     {
         Task<bool> CreateCartAsync(CartCreate model);
         Task<IEnumerable<CartListItem>> GetAllCartItemsAsync();
-        Task<CartDetail> GetCartItemByIdAsync(int cartId);
+        Task<CartDetail> GetCartByIdAsync(int cartId);
         Task<bool> UpdateCartAsync(CartEdit model);
         Task<bool> DeleteCartAsync(int cartId);
     }

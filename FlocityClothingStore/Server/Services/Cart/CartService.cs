@@ -1,6 +1,8 @@
 ﻿
 using FlocityClothingStore.Server.Data;
 using FlocityClothingStore.Shared.Models.Cart;
+using FlocityClothingStore.Shared.Models.Product;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlocityClothingStore.Server.Services.Cart
 {
@@ -15,11 +17,10 @@ namespace FlocityClothingStore.Server.Services.Cart
         public async Task<bool> CreateCartAsync(CartCreate model)
         {
             if (model == null) return false;
-            var cartEntity = new Cart
+            var cartEntity = new Models.Cart
             {
-                ProductId = model.ProductId,
-                ProductName = model.ProductName,
-                Size = model.Size
+                CustomerId = model.CustomerId,
+  
             };
             _context.Carts.Add(cartEntity);
             return await _context.SaveChangesAsync() == 1;
@@ -27,21 +28,17 @@ namespace FlocityClothingStore.Server.Services.Cart
 
         public async Task<IEnumerable<CartListItem>> GetAllCartItemsAsync()
         {
-            var results = await (from products in _context.ProductDetail
-                                 join cart in _context.CartDetail
-                                 on products.ProductId equals cart.ProductId
-                                 select new CartListItem
-                                 {
-                                     Id = cart.CartId,
-                                     ProductId = cart.ProductId,
-                                     ProductName = Cart.Product.Name,
-                                     Size = cart.Size,
-                                     Quantity = cart.Quantity,
-                                     DateOfTransaction = DateTime.Now
-                                 }).ToListAsync();
-            return results;
+            var carts = _context.Carts.Select(c => new CartListItem
+            {
+                Id = c.Id,
+                CustomerId = c.CustomerId
+
+            }) ;
+            return await carts.ToListAsync();
+ 
+   
         }
-        public async Task<CartDetail> GetCartItemByIdAsync(int cartId)
+        public async Task<CartDetail> GetCartByIdAsync(int cartId)
         {
             var cart = await _context.Carts.FindAsync(cartId);
             if (cart is null) return null;
@@ -49,12 +46,18 @@ namespace FlocityClothingStore.Server.Services.Cart
             return new CartDetail
             {
                 Id = cart.Id,
-                ProductId = cart.ProductId,
-                ProductName = cart.Product.Name,
-                Size = cart.Size,
-                Quantity = cart.Quantity,
-                DateOfTransaction = DateTime.Now
+                CustomerId = cart.CustomerId,
+                Products =  cart.Products.Select(p => new ProductListItem
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Size = p.Size
 
+                }).ToList(),
+                CustomerFullName = cart.Customer.FullName,
+                CustomerEmail = cart.Customer.Email,
             };
         }
 
@@ -63,11 +66,8 @@ namespace FlocityClothingStore.Server.Services.Cart
             var cart = await _context.Carts.FindAsync(model.Id);
             if (cart is null) return false;
 
-            cart.ProductName = model.ProductName;
-            cart.ProductId = model.ProductId;
-            cart.Size = model.Size;
-            cart.Quantity = model.Quantity;
-            cart.DateOfTransaction = model.DateTime.Now;
+            cart.CustomerId = model.CustomerId;
+    
 
             if (await _context.SaveChangesAsync() == 1)
                 return true;
