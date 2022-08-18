@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlocityClothingStore.Shared.Models.Product
+namespace FlocityClothingStore.Shared.Models.CartItem
 {
-    public class ProductEdit
+    public class CartItemCreate
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public double Price { get; set; }
+        public int CustomerId { get; set; }
+        public int ProductId { get; set; }
         public string Quantity { get; set; }
+        public string Size { get; set; }
     }
 }

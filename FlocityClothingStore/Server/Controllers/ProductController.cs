@@ -60,7 +60,9 @@ namespace FlocityClothingStore.Server.Controllers
                 Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,
-                Description = product.Description
+                Description = product.Description,
+                Size = product.Size,
+                Quantity = product.Quantity
             };
             return Ok(productEdit);
 

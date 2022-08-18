@@ -22,6 +22,7 @@ namespace FlocityClothingStore.Server.Services.Transaction
                 CustomerId = model.CustomerId,
                 ProductId = model.ProductId,
                 Quantity = model.Quantity,
+                CartId = model.CartId,
                 DateOfTransaction = DateTime.Now
             });
             if (await _context.SaveChangesAsync() == 1)
@@ -33,11 +34,13 @@ namespace FlocityClothingStore.Server.Services.Transaction
             var transcations = await _context.Transactions
                 .Include(t => t.Customer)
                 .Include(t => t.Product)
+                .Include(t => t.Cart)
                 .Select(Transaction => new TransactionListItem
                 {
                     Id = Transaction.Id,
                     CustomerId = Transaction.Customer.Id,
                     ProductId = Transaction.Product.Id,
+                    CartId = Transaction.Cart.Id,
                     Quantity = Transaction.Quantity,
                     DateOfTransaction = Transaction.DateOfTransaction
                 }).ToListAsync();
@@ -49,6 +52,7 @@ namespace FlocityClothingStore.Server.Services.Transaction
             var transaction = await _context.Transactions
                  .Include(t => t.Product)
                  .Include(t => t.Customer)
+                 .Include(t => t.Cart)
                  .FirstOrDefaultAsync(t => t.Id == customerId);
 
             if (transaction == null) return null;
@@ -56,6 +60,8 @@ namespace FlocityClothingStore.Server.Services.Transaction
             {
                 Id = transaction.Id,
                 ProductId = transaction.ProductId,
+                CartId = transaction.CartId,
+                Cart = transaction.Cart,
                 Product = transaction.Product,
                 Customer = transaction.Customer,
                 CustomerId = transaction.CustomerId,
@@ -72,6 +78,7 @@ namespace FlocityClothingStore.Server.Services.Transaction
 
             transacation.Id = model.Id;
             transacation.ProductId = model.ProductId;
+            transacation.CartId = model.CartId;
             transacation.CustomerId = model.CustomerId;
             transacation.Quantity = model.Quantity;
             transacation.DateOfTransaction = model.DateOfTransaction;

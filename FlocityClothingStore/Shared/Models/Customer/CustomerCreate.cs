@@ -9,8 +9,9 @@ namespace FlocityClothingStore.Shared.Models.Customer
 {
     public class CustomerCreate
     {
+        [Required]
         public string FullName { get; set; }
-  
+        [Required]
         public string Email { get; set; }
     }
 }

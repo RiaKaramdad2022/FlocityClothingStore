@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FlocityClothingStore.Shared.Models.Cart;
+using FlocityClothingStore.Shared.Models.Transaction;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,5 +16,6 @@ namespace FlocityClothingStore.Shared.Models.Customer
         public string FullName { get; set; }
         [Required]
         public string Email { get; set; }
+    
     }
 }

@@ -5,10 +5,10 @@ namespace FlocityClothingStore.Server.Services.Cart
 {
     public interface ICartService
     {
-        Task<bool> CreateCart(CartCreate model);
-        Task<IEnumerable<CartListItem>> GetAllCartItems();
-        Task<CartDetail> GetCartItemById(int CartId);
-        Task<bool> UpdateCart(CartEdit model);
-        Task<bool> DeleteCart(int cartId);
+        Task<bool> CreateCartAsync(CartCreate model);
+        Task<IEnumerable<CartListItem>> GetAllCartItemsAsync();
+        Task<CartDetail> GetCartItemByIdAsync(int cartId);
+        Task<bool> UpdateCartAsync(CartEdit model);
+        Task<bool> DeleteCartAsync(int cartId);
     }
 }

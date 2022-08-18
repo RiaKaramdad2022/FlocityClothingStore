@@ -20,7 +20,9 @@ namespace FlocityClothingStore.Server.Services.Product
             {
                 Name = model.Name,
                 Price = model.Price,
-                Description =model.Description
+                Description =model.Description,
+                Size = model.Size,
+                Quantity = model.Quantity
             });
             if (await _context.SaveChangesAsync() == 1)
                 return true;
@@ -34,7 +36,9 @@ namespace FlocityClothingStore.Server.Services.Product
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
-                Price = product.Price
+                Price = product.Price,
+                Size = product.Size,
+                Quantity = product.Quantity
             }).ToListAsync();
             return products;
         }
@@ -51,7 +55,10 @@ namespace FlocityClothingStore.Server.Services.Product
                 Id = product.Id,
                 Name = product.Name,
                 Description = product.Description,
-                Price = product.Price
+                Price = product.Price,
+                Size = product.Size,
+                Quantity = product.Quantity
+
             };
         }
         public async Task<bool> UpdateProductAsync(ProductEdit model)

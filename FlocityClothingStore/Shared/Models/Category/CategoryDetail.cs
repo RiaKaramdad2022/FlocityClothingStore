@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlocityClothingStore.Shared.Models.Product;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace FlocityClothingStore.Shared.Models.Category
     {
         public int Id { get; set; }
         public string CategoryName { get; set; }
-        public int ProductId { get; set; }
+    
+        public  List<ProductListItem> Products { get; set; }
     }
 }
