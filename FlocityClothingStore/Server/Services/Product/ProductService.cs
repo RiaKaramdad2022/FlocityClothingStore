@@ -16,19 +16,18 @@ namespace FlocityClothingStore.Server.Services.Product
         {
             if (model == null) return false;
 
-            _context.Products.Add(new Product
+            _context.Products.Add(new Models.Product
             {
                 Name = model.Name,
                 Price = model.Price,
                 Description =model.Description,
                 Size = model.Size,
-                Quantity = model.Quantity
+             
             });
             if (await _context.SaveChangesAsync() == 1)
                 return true;
             return false;
         }
-
         public async Task<IEnumerable<ProductListItem>> GetAllProductAsync()
         {
             var products = await _context.Products.Select(product => new ProductListItem
@@ -38,7 +37,7 @@ namespace FlocityClothingStore.Server.Services.Product
                 Description = product.Description,
                 Price = product.Price,
                 Size = product.Size,
-                Quantity = product.Quantity
+               
             }).ToListAsync();
             return products;
         }
@@ -57,9 +56,9 @@ namespace FlocityClothingStore.Server.Services.Product
                 Description = product.Description,
                 Price = product.Price,
                 Size = product.Size,
-                Quantity = product.Quantity
-
+                
             };
+
         }
         public async Task<bool> UpdateProductAsync(ProductEdit model)
         {
@@ -69,6 +68,7 @@ namespace FlocityClothingStore.Server.Services.Product
             product.Name = model.Name;
             product.Description = model.Description;
             product.Price = model.Price;
+            product.Size = model.Size;
 
             if (await _context.SaveChangesAsync() == 1)
                 return true;

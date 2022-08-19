@@ -58,7 +58,6 @@ namespace FlocityClothingStore.Server.Services.CartItem
                 Price = cartItem.Product.Price
 
             };
-                
         }
 
         public async Task<bool> UpdateCartItemAsync(CartItemEdit model)
@@ -75,7 +74,6 @@ namespace FlocityClothingStore.Server.Services.CartItem
                 return true;
             return false;
         }
-
 
         public async Task<bool> DeleteCartItemAsync(int cartItemId)
         {

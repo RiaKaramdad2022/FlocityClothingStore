@@ -2,6 +2,7 @@
 using FlocityClothingStore.Shared.Models.Customer;
 using Microsoft.EntityFrameworkCore;
 using FlocityClothingStore.Server.Models;
+using FlocityClothingStore.Shared.Models.Transaction;
 
 namespace FlocityClothingStore.Server.Services.Customer
 {
@@ -15,11 +16,10 @@ namespace FlocityClothingStore.Server.Services.Customer
         {
             _context = context;
         }
-
        public async Task<bool> CreateCustomerAsync (CustomerCreate model)
         {
             if (model == null) return false;
-            var customerEntity = new Customer
+            var customerEntity = new Models.Customer
             {
                 FullName = model.FullName,
                 Email = model.Email
@@ -30,29 +30,38 @@ namespace FlocityClothingStore.Server.Services.Customer
 
         public async Task<IEnumerable<CustomerListItem>> GetAllCustomersAsync()
         {
-            var customers = await _context.Customers.Select(customer => new CustomerListItem
+            var customers = _context.Customers.Select(customer => new CustomerListItem
             {
                 Id = customer.Id,
                 FullName = customer.FullName,
                 Email = customer.Email
-            }).ToListAsync();
-            return customers;
+            });
+            return await customers.ToListAsync();
         }
-
         public async Task<CustomerDetail> GetCustomerByIdAsync(int CustomerId)
         {
             var customer = await _context.Customers.FindAsync(CustomerId);
 
-            if (customer is null)
-                return null;
+            if (customer is null) return null;
 
             return new CustomerDetail
             {
                 Id = customer.Id,
                 FullName = customer.FullName,
-                Email = customer.Email
+                Email = customer.Email,
+                Transactions = customer.Transactions.Select(t => new TransactionListItem
+                {
+                    Id = t.Id,
+                    ProductId = t.ProductId,
+                    CartId = t.CartId,
+                    CustomerId = t.CustomerId,
+                    Quantity = t.Quantity,
+                    DateOfTransaction = DateTime.Now
+
+                }).ToList()
             };
         }
+
         //The Update method will find the existing Customer and return false if it doesn't exist, then alter the details, and save the changes asynchronously.
         public async Task<bool> UpdateCustomerAsync(CustomerEdit model)
         {

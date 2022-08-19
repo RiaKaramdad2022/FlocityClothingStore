@@ -25,8 +25,7 @@ namespace FlocityClothingStore.Server.Services.Cart
             _context.Carts.Add(cartEntity);
             return await _context.SaveChangesAsync() == 1;
         }
-
-        public async Task<IEnumerable<CartListItem>> GetAllCartItemsAsync()
+        public async Task<IEnumerable<CartListItem>> GetAllCartProductsAsync()
         {
             var carts = _context.Carts.Select(c => new CartListItem
             {
@@ -35,8 +34,6 @@ namespace FlocityClothingStore.Server.Services.Cart
 
             }) ;
             return await carts.ToListAsync();
- 
-   
         }
         public async Task<CartDetail> GetCartByIdAsync(int cartId)
         {
@@ -60,7 +57,6 @@ namespace FlocityClothingStore.Server.Services.Cart
                 CustomerEmail = cart.Customer.Email,
             };
         }
-
         public async Task<bool> UpdateCartAsync(CartEdit model)
         {
             var cart = await _context.Carts.FindAsync(model.Id);

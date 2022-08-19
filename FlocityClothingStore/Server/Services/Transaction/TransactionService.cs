@@ -17,7 +17,7 @@ namespace FlocityClothingStore.Server.Services.Transaction
         {
             if (model == null) return false;
 
-            _context.Transactions.Add(new Transaction
+            _context.Transactions.Add(new Models.Transaction
             {
                 CustomerId = model.CustomerId,
                 ProductId = model.ProductId,
@@ -31,42 +31,35 @@ namespace FlocityClothingStore.Server.Services.Transaction
         }
         public async Task<IEnumerable<TransactionListItem>> GetAllTransactionsAsync()
         {
-            var transcations = await _context.Transactions
-                .Include(t => t.Customer)
-                .Include(t => t.Product)
-                .Include(t => t.Cart)
-                .Select(Transaction => new TransactionListItem
-                {
-                    Id = Transaction.Id,
-                    CustomerId = Transaction.Customer.Id,
-                    ProductId = Transaction.Product.Id,
-                    CartId = Transaction.Cart.Id,
-                    Quantity = Transaction.Quantity,
-                    DateOfTransaction = Transaction.DateOfTransaction
-                }).ToListAsync();
-            return transcations;
+            var transcations = _context.Transactions.Select(t => new TransactionListItem
+            {
+                Id = t.Id,
+                CustomerId = t.CustomerId,
+                ProductId = t.ProductId,
+                CartId = t.CartId,
+                Quantity = t.Quantity,
+                DateOfTransaction = t.DateOfTransaction
+            });
+   
+            return await transcations.ToListAsync();
         }
 
-        public async Task<TransactionDetail> GetTransactionByIdAsync(int customerId)
+        public async Task<TransactionDetail> GetTransactionByIdAsync(int transactionId)
         {
-            var transaction = await _context.Transactions
-                 .Include(t => t.Product)
-                 .Include(t => t.Customer)
-                 .Include(t => t.Cart)
-                 .FirstOrDefaultAsync(t => t.Id == customerId);
+            var transaction = await _context.Transactions.FindAsync(transactionId);
 
             if (transaction == null) return null;
+
             var transacationDetail = new TransactionDetail
             {
                 Id = transaction.Id,
                 ProductId = transaction.ProductId,
                 CartId = transaction.CartId,
-                Cart = transaction.Cart,
-                Product = transaction.Product,
-                Customer = transaction.Customer,
                 CustomerId = transaction.CustomerId,
                 Quantity = transaction.Quantity,
-                DateOfTransaction = transaction.DateOfTransaction
+                DateOfTransaction = transaction.DateOfTransaction,
+                ProductPrice = transaction.Product.Price,
+
 
             };
             return transacationDetail;

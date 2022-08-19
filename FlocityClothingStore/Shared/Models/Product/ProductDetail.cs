@@ -15,8 +15,8 @@ namespace FlocityClothingStore.Shared.Models.Product
         public string Description { get; set; }
         public double Price { get; set; }
         public string Size { get; set; }
-        public virtual List<TransactionListItem> Transactions{ get; set; } = new();
-        public virtual List<CartListItem> Carts { get; set; } = new();
+
+      
 
     }
 }

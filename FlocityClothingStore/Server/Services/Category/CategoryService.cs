@@ -1,7 +1,9 @@
 ﻿using FlocityClothingStore.Server.Data;
+using FlocityClothingStore.Server.Models;
 using FlocityClothingStore.Shared.Models.Cart;
 using FlocityClothingStore.Shared.Models.Category;
 using FlocityClothingStore.Shared.Models.Customer;
+using FlocityClothingStore.Shared.Models.Product;
 using Microsoft.EntityFrameworkCore; 
 
 namespace FlocityClothingStore.Server.Services.Category
@@ -16,47 +18,52 @@ namespace FlocityClothingStore.Server.Services.Category
 
         public async Task<bool> CreateCategoryAsync(CategoryCreate model)
         {
-            var categoryEntity = new Category
+            if (model == null) return false;
+            var categoryEntity = new Models.Category
             {
                 CategoryName = model.CategoryName,
-                ProductId = model.ProductId
+
             };
             _context.Categories.Add(categoryEntity);
-            var numberOfChanges = await _context.SaveChangesAsync();
-
-            return numberOfChanges == 1;
+            var numberOfChanges = await _context.SaveChangesAsync() == 1;
         }
 
         public async Task<IEnumerable<CategoryListItem>> GetAllCategoriesAsync()
         {
-            var categories = await _context.Categories.Select(c =>
-                    new CategoryListItem
-                    {
-                        Id = c.Id,
-                        ProductId = c.ProductId,
-                        CategoryName = c.CategoryName
-                    }).ToListAsync();
-            return categories;
+            var categories = _context.Categories.Select(c => new CategoryListItem
+            {
+                Id = c.Id,
+                CategoryName = c.CategoryName
+            });
+            return await categories.ToListAsync();
         }
         public async Task<CategoryDetail> GetCategoryByIdAsync(int categoryId)
         {
             var category = await _context.Categories.FindAsync(categoryId);
-            if (category is null)
-                return null;
+            if (category is null) return null;
 
             return new CategoryDetail
             {
                 Id = category.Id,
                 CategoryName = category.CategoryName,
-                ProductId = category.ProductId,
+                Products = category.Products.Select(c => new ProductListItem
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description,
+                    Price = c.Price,
+                    Size = c.Size
+
+                }).ToList()
             };
         }
+
+
         public async Task<bool> UpdateCategoryAsync(CategoryEdit model)
         {
             var category = await _context.Categories.FindAsync(model.Id);
             if (category is null) return false;
 
-            category.ProductId = model.ProductId;
             category.CategoryName = model.CategoryName;
 
             if (await _context.SaveChangesAsync() == 1)
