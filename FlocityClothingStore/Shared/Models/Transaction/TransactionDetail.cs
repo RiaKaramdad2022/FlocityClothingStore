@@ -27,9 +27,7 @@ namespace FlocityClothingStore.Shared.Models.Transaction
         public string ProductDescription { get; set; }
 
 
-        // public virtual CustomerDetail Customer { get; set; } = null!;
-        //public virtual ProductDetail Product { get; set; } = null!;
-        //public virtual CartDetail Cart { get; set; } = null;
+       
 
     }
 }

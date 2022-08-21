@@ -44,17 +44,9 @@ namespace FlocityClothingStore.Server.Services.Cart
             {
                 Id = cart.Id,
                 CustomerId = cart.CustomerId,
-                Products =  cart.Products.Select(p => new ProductListItem
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Description = p.Description,
-                    Price = p.Price,
-                    Size = p.Size
-
-                }).ToList(),
-                CustomerFullName = cart.Customer.FullName,
                 CustomerEmail = cart.Customer.Email,
+                CustomerFullName = cart.Customer.FullName
+
             };
         }
         public async Task<bool> UpdateCartAsync(CartEdit model)

@@ -19,9 +19,11 @@ namespace FlocityClothingStore.Server.Services.CartItem
             if (model == null) return false;
             var cartItemEntity = new Models.CartItem
             {
-                CustomerId = model.CustomerId,
+                CartId = model.CartId,
                 Quantity = model.Quantity,
-                ProductId = model.ProductId
+                ProductId = model.ProductId,
+                Size = model.Size,
+
             };
             _context.CartItems.Add(cartItemEntity);
             return await _context.SaveChangesAsync() == 1;
@@ -32,7 +34,7 @@ namespace FlocityClothingStore.Server.Services.CartItem
             var cartItems = _context.CartItems.Select(ct => new CartItemListItem
             {
                 Id = ct.Id,
-                CustomerId = ct.CustomerId,
+                CartId = ct.CartId,
                 ProductId = ct.ProductId,
                 Quantity = ct.Quantity,
                 Size = ct.Size
@@ -50,12 +52,12 @@ namespace FlocityClothingStore.Server.Services.CartItem
             return new CartItemDetail
             {
                 Id = cartItem.Id,
-                CustomerId = cartItem.CustomerId,
+                CartId = cartItem.CartId,
                 ProductId = cartItem.ProductId,
                 Quantity = cartItem.Quantity,
                 Size = cartItem.Size,
                 ProductName = cartItem.Product.Name,
-                Price = cartItem.Product.Price
+                ProductPrice = cartItem.Product.Price
 
             };
         }
@@ -65,7 +67,7 @@ namespace FlocityClothingStore.Server.Services.CartItem
             var cartItem = await _context.CartItems.FindAsync(model.Id);
             if (cartItem is null) return false;
 
-            cartItem.CustomerId = model.CustomerId;
+            cartItem.CartId = model.CartId;
             cartItem.ProductId = model.ProductId;
             cartItem.Quantity = model.Quantity;
             cartItem.Size = model.Size;

@@ -22,7 +22,6 @@ namespace FlocityClothingStore.Server.Services.Transaction
                 CustomerId = model.CustomerId,
                 ProductId = model.ProductId,
                 Quantity = model.Quantity,
-                CartId = model.CartId,
                 DateOfTransaction = DateTime.Now
             });
             if (await _context.SaveChangesAsync() == 1)
@@ -36,7 +35,6 @@ namespace FlocityClothingStore.Server.Services.Transaction
                 Id = t.Id,
                 CustomerId = t.CustomerId,
                 ProductId = t.ProductId,
-                CartId = t.CartId,
                 Quantity = t.Quantity,
                 DateOfTransaction = t.DateOfTransaction
             });
@@ -54,12 +52,10 @@ namespace FlocityClothingStore.Server.Services.Transaction
             {
                 Id = transaction.Id,
                 ProductId = transaction.ProductId,
-                CartId = transaction.CartId,
                 CustomerId = transaction.CustomerId,
                 Quantity = transaction.Quantity,
                 DateOfTransaction = transaction.DateOfTransaction,
                 ProductPrice = transaction.Product.Price,
-
 
             };
             return transacationDetail;
@@ -71,7 +67,6 @@ namespace FlocityClothingStore.Server.Services.Transaction
 
             transacation.Id = model.Id;
             transacation.ProductId = model.ProductId;
-            transacation.CartId = model.CartId;
             transacation.CustomerId = model.CustomerId;
             transacation.Quantity = model.Quantity;
             transacation.DateOfTransaction = model.DateOfTransaction;

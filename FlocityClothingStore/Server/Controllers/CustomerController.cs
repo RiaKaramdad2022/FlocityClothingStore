@@ -15,23 +15,20 @@ namespace FlocityClothingStore.Server.Controllers
             _customerService = customerService;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<List<CustomerListItem>> Index()
         {
             var customers = await _customerService.GetAllCustomersAsync();
-            return Ok(customers);
+            return customers.ToList();
         }
-
-        //Get: customer/details/{id}
-        public async Task<IActionResult> Details(int id)
+   
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Customer(int id)
         {
             var customer = await _customerService.GetCustomerByIdAsync(id);
             if (customer == null)
                 return NotFound();
             return Ok(customer);
-        }
-        public async Task<IActionResult> Create()
-        {
-            return Ok();
         }
 
         [HttpPost]
@@ -43,7 +40,7 @@ namespace FlocityClothingStore.Server.Controllers
 
             if (wasCreated)
                 return Ok();
-            else return UnprocessableEntity();
+            return UnprocessableEntity();
         }
 
         [HttpGet("{id}")]
@@ -60,6 +57,7 @@ namespace FlocityClothingStore.Server.Controllers
             };
             return Ok(customerEdit);
         }
+
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> Edit(int id, CustomerEdit model)
         {

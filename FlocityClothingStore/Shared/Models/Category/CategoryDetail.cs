@@ -12,6 +12,8 @@ namespace FlocityClothingStore.Shared.Models.Category
         public int Id { get; set; }
         public string CategoryName { get; set; }
     
-       // public  List<ProductListItem> Products { get; set; }
+
+        public List<ProductListItem> Products { get; set; } = new List<ProductListItem>();
+
     }
 }

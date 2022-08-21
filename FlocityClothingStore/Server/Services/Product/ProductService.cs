@@ -41,13 +41,11 @@ namespace FlocityClothingStore.Server.Services.Product
             }).ToListAsync();
             return products;
         }
-
         public async Task<ProductDetail> GetProductByIdAsync(int productId)
         {
             var product = await _context.Products.FindAsync(productId);
 
-            if (product is null)
-                return null;
+            if (product is null) return null;
 
             return new ProductDetail
             {
@@ -56,7 +54,6 @@ namespace FlocityClothingStore.Server.Services.Product
                 Description = product.Description,
                 Price = product.Price,
                 Size = product.Size,
-                
             };
 
         }

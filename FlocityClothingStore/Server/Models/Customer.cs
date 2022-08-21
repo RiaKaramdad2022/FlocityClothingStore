@@ -10,6 +10,7 @@ namespace FlocityClothingStore.Server.Models
         [Required]
         public string Email { get; set; }
 
-        public virtual ICollection<Transaction> Transactions { get; set; }
+        // //Making virtual list to make a junction table for a many to many relationship between the Customer and Transactions Table
+        public virtual List<Transaction> Transactions { get; set; } = new List<Transaction>();
     }
 }

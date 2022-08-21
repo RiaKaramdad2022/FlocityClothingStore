@@ -16,87 +16,54 @@ namespace FlocityClothingStore.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<List<ProductListItem>> Index()
         {
             var products = await _productService.GetAllProductAsync();
-            return Ok(products);
+            return products.ToList();
         }
 
-        public IActionResult Create()
-        {
-            return Ok();
-        }
-        [HttpPost]
-        public async Task<IActionResult>Create(ProductCreate model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return Ok(ModelState);
-            }
-            if (await _productService.CreateProductAsync(model))
-                return RedirectToAction(nameof(Index));
-
-            return Ok(model);
-        }
-
-        public async Task<IActionResult> Details(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Product(int id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
-            {
                 return NotFound();
-            }
             return Ok(product);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductCreate model)
         {
-            var product = await _productService.GetProductByIdAsync(id);
-            if (product == null) return NotFound();
+            if (model == null) return BadRequest();
 
-            var productEdit = new ProductEdit
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Description = product.Description,
-                Size = product.Size,
-                Quantity = product.Quantity
-            };
-            return Ok(productEdit);
+            bool wasSuccessful = await _productService.CreateProductAsync(model);
 
+            if (wasSuccessful) return Ok();
+            return UnprocessableEntity();
         }
 
         [HttpPut("edit/{id}")]
         public async Task<IActionResult> Edit(int id, ProductEdit model)
         {
-            if (id != model.Id || !ModelState.IsValid)
-                return Ok(ModelState);
-
+            if (model == null || !ModelState.IsValid) return BadRequest();
+            if (model.Id != id) return BadRequest();
+          
             bool wasUpdated = await _productService.UpdateProductAsync(model);
-            
-            if (wasUpdated) return RedirectToAction(nameof(Index));
-            return Ok(model);
+
+            if (wasUpdated) return Ok();
+            return BadRequest();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             if (product == null) return NotFound();
-            return Ok(product);
-        }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(ProductDetail model)
-        {
-            if (await _productService.DeleteProductAsync(model.Id))
-                return RedirectToAction(nameof(Index));
-            else
-                return BadRequest();
-        }
 
-
+            bool wasSucessful = await _productService.DeleteProductAsync(id);
+            if (!wasSucessful) return BadRequest();
+            return Ok();
+        }
 
     }
 }

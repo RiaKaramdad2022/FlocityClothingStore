@@ -49,16 +49,6 @@ namespace FlocityClothingStore.Server.Services.Customer
                 Id = customer.Id,
                 FullName = customer.FullName,
                 Email = customer.Email,
-                Transactions = customer.Transactions.Select(t => new TransactionListItem
-                {
-                    Id = t.Id,
-                    ProductId = t.ProductId,
-                    CartId = t.CartId,
-                    CustomerId = t.CustomerId,
-                    Quantity = t.Quantity,
-                    DateOfTransaction = DateTime.Now
-
-                }).ToList()
             };
         }
 

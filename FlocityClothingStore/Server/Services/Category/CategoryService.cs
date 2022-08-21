@@ -15,7 +15,6 @@ namespace FlocityClothingStore.Server.Services.Category
         {
             _context = context;
         }
-
         public async Task<bool> CreateCategoryAsync(CategoryCreate model)
         {
             if (model == null) return false;
@@ -25,12 +24,12 @@ namespace FlocityClothingStore.Server.Services.Category
 
             };
             _context.Categories.Add(categoryEntity);
-            var numberOfChanges = await _context.SaveChangesAsync() == 1;
+            return await _context.SaveChangesAsync() == 1;
         }
 
-        public async Task<IEnumerable<CategoryListItem>> GetAllCategoriesAsync()
+        public async Task<IEnumerable<Shared.Models.Category.CategoryListItem>> GetAllCategoriesAsync()
         {
-            var categories = _context.Categories.Select(c => new CategoryListItem
+            var categories = _context.Categories.Select(c => new Shared.Models.Category.CategoryListItem
             {
                 Id = c.Id,
                 CategoryName = c.CategoryName
@@ -46,7 +45,8 @@ namespace FlocityClothingStore.Server.Services.Category
             {
                 Id = category.Id,
                 CategoryName = category.CategoryName,
-                Products = category.Products.Select(c => new ProductListItem
+                Products = category.Products.Select(c => 
+                new ProductListItem
                 {
                     Id = c.Id,
                     Name = c.Name,
@@ -57,7 +57,6 @@ namespace FlocityClothingStore.Server.Services.Category
                 }).ToList()
             };
         }
-
 
         public async Task<bool> UpdateCategoryAsync(CategoryEdit model)
         {
