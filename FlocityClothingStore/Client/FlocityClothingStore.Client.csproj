@@ -15,4 +15,13 @@
     <ProjectReference Include="..\Shared\FlocityClothingStore.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Cart\" />
+    <Folder Include="Pages\CartItem\" />
+    <Folder Include="Pages\Category\" />
+    <Folder Include="Pages\Customer\" />
+    <Folder Include="Pages\Transaction\" />
+    <Folder Include="Pages\Product\" />
+  </ItemGroup>
+
 </Project>
