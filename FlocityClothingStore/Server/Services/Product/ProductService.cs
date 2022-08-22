@@ -28,7 +28,7 @@ namespace FlocityClothingStore.Server.Services.Product
                 return true;
             return false;
         }
-        public async Task<IEnumerable<ProductListItem>> GetAllProductAsync()
+        public async Task<IEnumerable<ProductListItem>> GetAllProductsAsync()
         {
             var products = await _context.Products.Select(product => new ProductListItem
             {

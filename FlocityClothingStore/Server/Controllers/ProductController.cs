@@ -18,7 +18,7 @@ namespace FlocityClothingStore.Server.Controllers
         [HttpGet]
         public async Task<List<ProductListItem>> Index()
         {
-            var products = await _productService.GetAllProductAsync();
+            var products = await _productService.GetAllProductsAsync();
             return products.ToList();
         }
 
@@ -48,9 +48,9 @@ namespace FlocityClothingStore.Server.Controllers
             if (model == null || !ModelState.IsValid) return BadRequest();
             if (model.Id != id) return BadRequest();
           
-            bool wasUpdated = await _productService.UpdateProductAsync(model);
+            bool wasSucessful = await _productService.UpdateProductAsync(model);
 
-            if (wasUpdated) return Ok();
+            if (wasSucessful) return Ok();
             return BadRequest();
         }
 

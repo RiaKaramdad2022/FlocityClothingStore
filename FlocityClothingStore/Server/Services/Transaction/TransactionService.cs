@@ -55,7 +55,7 @@ namespace FlocityClothingStore.Server.Services.Transaction
                 CustomerId = transaction.CustomerId,
                 Quantity = transaction.Quantity,
                 DateOfTransaction = transaction.DateOfTransaction,
-                ProductPrice = transaction.Product.Price,
+                ProductPrice = transaction.Product.Price
 
             };
             return transacationDetail;

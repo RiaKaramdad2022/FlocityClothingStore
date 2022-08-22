@@ -26,8 +26,8 @@ namespace FlocityClothingStore.Server.Controllers
         public async Task<IActionResult> Customer(int id)
         {
             var customer = await _customerService.GetCustomerByIdAsync(id);
-            if (customer == null)
-                return NotFound();
+
+            if (customer == null) return NotFound();
             return Ok(customer);
         }
 
@@ -40,22 +40,7 @@ namespace FlocityClothingStore.Server.Controllers
 
             if (wasCreated)
                 return Ok();
-            return UnprocessableEntity();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Edit(int id)
-        {
-            CustomerDetail customer = await _customerService.GetCustomerByIdAsync(id);
-            if (customer == null) return NotFound();
-
-            var customerEdit = new CustomerEdit
-            {
-                Id = customer.Id,
-                FullName = customer.FullName,
-                Email = customer.Email
-            };
-            return Ok(customerEdit);
+            else return UnprocessableEntity();
         }
 
         [HttpPut("edit/{id}")]
@@ -64,9 +49,9 @@ namespace FlocityClothingStore.Server.Controllers
             if (model == null || !ModelState.IsValid) return BadRequest();
             if (model.Id != id) return BadRequest();
 
-            bool wasUpdate = await _customerService.UpdateCustomerAsync(model);
+            bool wasSucessful = await _customerService.UpdateCustomerAsync(model);
 
-            if (wasUpdate) return Ok();
+            if (wasSucessful) return Ok();
             return BadRequest();
         }
 
