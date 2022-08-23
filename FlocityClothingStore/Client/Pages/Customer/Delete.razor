@@ -1,0 +1,63 @@
+﻿@page "/page/delete/{CustomerId:int}"
+@using FlocityClothingStore.Shared.Models.Customer
+@inject HttpClient http
+@inject NavigationManager navigation
+
+
+<h3>Customer #@CustomerId</h3>
+@if(Message !=null)
+{
+    <h2 class="text-danger">@Message</h2>
+}
+if(Customer != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Customer #@Customer.Id</span>
+                <span class="text-muted"><strong>@Customer.FullName</strong></span>
+            </div>
+        <div class="card-footer text-muted d-flex justify-content-between">
+            <span class"text-muted"><strong>@Customer.Email</strong></span>
+        </div>
+    </div>
+    <div class="d-flex justify-content mt-3">
+        <div class="text-center justify-content-between w-50">
+            <a href=@($"/customer/edit/{CustomerId}") class="btn btn-outline-primary">Back to Index</a>
+            <a href="#" @onclick="HandleClick" class="btn btn-danger text-white">Delete Customer!</a>
+        </div>
+    </div>
+    </div>
+}
+else
+{
+    <p><em>Loading...</em></p>
+}
+
+@code {
+    [Parameter]
+    public int CustomerId { get; set; }
+    public CustomerDetail Customer { get; set; }
+    public string Message { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+        Customer = await http.GetFromJsonAsync<CustomerDetail>($"/api/customer/{CustomerId}");
+    }
+    private async void HandleClick()
+    {
+        //call a Delete request on our API
+        var deleteRes = await http.DeleteAsync($"/api/customer/{CustomerId}");
+
+        //check to make sure the call was successul
+        //if successful, naviage back to the Index.razor component
+        if(deleteRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/customer");
+        }
+        //if it was not successful, give the user an error message
+        else
+        {
+            Message = "Failed to delete your information.";
+        }
+    }
+}

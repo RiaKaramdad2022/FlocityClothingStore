@@ -1,0 +1,44 @@
+﻿@page "/customer/create"
+@using FlocityClothingStore.Shared.Models.Customer
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Create Customer</h3>
+
+@if(errorMessage !=null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label>Name</label>
+                <InputText class="form-control" @bind-Value="model.FullName" />
+            </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <InputTextArea class="form-control" @bind-Value="model.Email" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
+
+@code {
+        private CustomerCreate model = new();
+        private string errorMessage;
+        private async void HandleSubmit()
+        {
+            var createRes = await http.PostAsJsonAsync<CustomerCreate>("/api/customer", model);
+            if (createRes.IsSuccessStatusCode)
+            {
+                navigation.NavigateTo("/customer");
+            }
+            else
+            {
+                errorMessage = "Customer could not be created. Please try again later.";
+            }
+        }
+}

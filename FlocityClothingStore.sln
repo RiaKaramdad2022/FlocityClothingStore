@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32804.467
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlocityClothingStore.Server", "FlocityClothingStore\Server\FlocityClothingStore.Server.csproj", "{E1EA11FC-02B1-47A5-A078-F46EBC7B0EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlocityClothingStore.Server", "FlocityClothingStore\Server\FlocityClothingStore.Server.csproj", "{E1EA11FC-02B1-47A5-A078-F46EBC7B0EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlocityClothingStore.Client", "FlocityClothingStore\Client\FlocityClothingStore.Client.csproj", "{AA3DACA3-5625-49DA-BD2C-73D00E50CF85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlocityClothingStore.Client", "FlocityClothingStore\Client\FlocityClothingStore.Client.csproj", "{AA3DACA3-5625-49DA-BD2C-73D00E50CF85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlocityClothingStore.Shared", "FlocityClothingStore\Shared\FlocityClothingStore.Shared.csproj", "{CF088626-551A-4C0E-808D-88DAFF7C0D71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlocityClothingStore.Shared", "FlocityClothingStore\Shared\FlocityClothingStore.Shared.csproj", "{CF088626-551A-4C0E-808D-88DAFF7C0D71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

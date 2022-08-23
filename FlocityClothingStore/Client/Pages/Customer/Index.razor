@@ -1,0 +1,47 @@
+﻿@page "/customer"
+@using FlocityClothingStore.Shared.Models.Customer
+@inject HttpClient http
+
+<h3>Customer</h3>
+<a href=" /customer/create" class="text-primary">Create a customer</a>
+@if(_customer == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>FullName</th>
+                <th>Email</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in _customer)
+            {
+                <tr>
+                    <td><strong>@customer.Id</strong></td>
+                    <td><strong>@customer.FullName</strong></td>
+                    <td><strong>@customer.Email</strong></td>
+                    <td>
+                        <a href=@($"customer/{customer.Id}")>Details</a>
+                        <a href=@($"customer/edit{customer.Id}")>Edit</a>
+                        <a href=@($"customer/delete{customer.Id}")>Delete</a>
+                        
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<CustomerListItem> _customer;
+    protected override async Task OnInitializedAsync()
+    {
+        _customer = await http.GetFromJsonAsync<List<CustomerListItem>>("/api/customer");
+    }
+}

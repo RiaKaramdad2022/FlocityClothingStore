@@ -1,0 +1,52 @@
+﻿@page "/customer/edit/{CustomerId:int}"
+@using FlocityClothingStore.Shared.Models.Customer
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Edit Customer: @model.FullName</h3>
+
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Name</label>
+            <InputText class="form-control" @bind-Value="model.FullName" />
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <InputTextArea class="form-control" @bind-Value="model.Email" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public int CustomerId { get; set; }
+    private CustomerEdit model = new();
+    private IEnumerable<CustomerListItem> Customers;
+    private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        model = await http.GetFromJsonAsync<CustomerEdit>($"/api/customer/{CustomerId}");
+        Customers = await http.GetFromJsonAsync<IEnumerable<CustomerListItem>>("/api/customer");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PutAsJsonAsync<CustomerEdit>("/api/customer/{CustomerId}", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/customer/{CustomerId}");
+        }
+        else
+        {
+            errorMessage = "We could not edit customer right now, please try again later.";
+        }
+    }
+}

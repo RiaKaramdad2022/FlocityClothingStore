@@ -1,0 +1,44 @@
+﻿@page "/transaction"
+@using FlocityClothingStore.Shared.Models.Transaction
+@inject HttpClient http
+
+<h3>Transactions</h3>
+<a href="transaction/create"> Create New Transaction</a>
+@if(transactions == null)
+{
+    <p><em>Loading ...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Quantity</th>
+                <th>DateOfTransaction</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach(TransactionListItem transaction in transactions)
+            {
+                <tr>
+                    <td>@transaction.Id</td>
+                    <td>@transaction.Quantity</td>
+                    <td>@transaction.DateOfTransaction</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+}
+
+@code {
+    private List<TransactionListItem> transactions;
+    protected override async Task OnInitializedAsync()
+    {
+        transactions = await http.GetFromJsonAsync<List<TransactionListItem>>("/api/transaction");
+    }
+
+}
