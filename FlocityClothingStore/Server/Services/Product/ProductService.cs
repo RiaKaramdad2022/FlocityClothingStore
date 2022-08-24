@@ -1,4 +1,5 @@
 ﻿using FlocityClothingStore.Server.Data;
+using FlocityClothingStore.Server.Models;
 using FlocityClothingStore.Shared.Models.Product;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,7 @@ namespace FlocityClothingStore.Server.Services.Product
                 Price = model.Price,
                 Description =model.Description,
                 Size = model.Size,
+                CategoryId = model.CategoryId,
              
             });
             if (await _context.SaveChangesAsync() == 1)
@@ -37,13 +39,16 @@ namespace FlocityClothingStore.Server.Services.Product
                 Description = product.Description,
                 Price = product.Price,
                 Size = product.Size,
-               
+                CategoryId = product.CategoryId,
+
+
             }).ToListAsync();
             return products;
         }
         public async Task<ProductDetail> GetProductByIdAsync(int productId)
         {
-            var product = await _context.Products.FindAsync(productId);
+            var product = await _context.Products.Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.Id == productId);
 
             if (product is null) return null;
 
@@ -54,6 +59,9 @@ namespace FlocityClothingStore.Server.Services.Product
                 Description = product.Description,
                 Price = product.Price,
                 Size = product.Size,
+                CategoryId = product.CategoryId,
+                CategoryName = product.Category.CategoryName,
+
             };
 
         }
@@ -66,6 +74,8 @@ namespace FlocityClothingStore.Server.Services.Product
             product.Description = model.Description;
             product.Price = model.Price;
             product.Size = model.Size;
+            product.CategoryId = model.CategoryId;
+
 
             if (await _context.SaveChangesAsync() == 1)
                 return true;

@@ -1,1 +1,45 @@
-﻿
+﻿@page "/cart"
+@using FlocityClothingStore.Shared.Models.Cart
+@inject HttpClient http
+
+<h3>Cart</h3>
+<a href="/cart/create" class="text-primary">Create a cart</a>
+@if (_cart == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CustomerId</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cart in _cart)
+            {
+                <tr>
+                    <td><strong>@cart.Id</strong></td>
+                    <td><strong>@cart.CustomerId</strong></td>
+                    <td>
+                        <a href=@($"cart/{cart.Id}")>Details</a>
+                        <a href=@($"cart/edit/{cart.Id}")>Edit</a>
+                        <a href=@($"cart/delete/{cart.Id}")>Delete</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<CartListItem> _cart;
+    protected override async Task OnInitializedAsync()
+    {
+        _cart = await http.GetFromJsonAsync<List<CartListItem>>("/api/cart");
+    }
+}

@@ -12,11 +12,13 @@ namespace FlocityClothingStore.Server.Models
         public string Description { get; set; }
         public double Price  { get; set; }
         public string Size { get; set; }
+        [ForeignKey(nameof(Category))]
+        public int CategoryId { get; set; }
 
         //Making virtual list to make a junction table for a many to many relationship between the Product and Transactions Table
         public virtual List<Transaction> Transactions { get; set; } = new List<Transaction>();
 
-        public virtual List<Category> Categories { get; set; } = new List<Category>();
+        public virtual Category Category { get; set; }
 
 
     }

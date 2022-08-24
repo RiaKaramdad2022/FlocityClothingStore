@@ -20,7 +20,7 @@
 
         <div class="form-group">
             <label>Email</label>
-            <InputTextArea class="form-control" @bind-Value="model.Email" />
+            <InputText class="form-control" @bind-Value="model.Email" />
         </div>
         <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
     </EditForm>
@@ -30,19 +30,17 @@
     [Parameter]
     public int CustomerId { get; set; }
     private CustomerEdit model = new();
-    private IEnumerable<CustomerListItem> Customers;
     private string errorMessage;
     protected override async Task OnInitializedAsync()
     {
         model = await http.GetFromJsonAsync<CustomerEdit>($"/api/customer/{CustomerId}");
-        Customers = await http.GetFromJsonAsync<IEnumerable<CustomerListItem>>("/api/customer");
     }
     private async void HandleSubmit()
     {
-        var createRes = await http.PutAsJsonAsync<CustomerEdit>("/api/customer/{CustomerId}", model);
+        var createRes = await http.PutAsJsonAsync<CustomerEdit>($"/api/customer/edit/{CustomerId}", model);
         if (createRes.IsSuccessStatusCode)
         {
-            navigation.NavigateTo("/customer/{CustomerId}");
+            navigation.NavigateTo($"/customer/{CustomerId}");
         }
         else
         {

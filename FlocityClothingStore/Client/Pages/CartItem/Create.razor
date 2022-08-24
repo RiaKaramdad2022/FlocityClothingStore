@@ -1,0 +1,41 @@
+﻿@page "/cartItem/create"
+@using FlocityClothingStore.Shared.Models.CartItem
+@inject HttpClient http
+@using FlocityClothingStore.Shared.Models.Product
+@using FlocityClothingStore.Shared.Models.Cart
+@inject NavigationManager navigation
+
+
+<h3>Create</h3>
+@if(errorMessage !=null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+
+
+
+@code {
+    private CartItemCreate model = new();
+    private IEnumerable<ProductListItem> products;
+    private IEnumerable<CartListItem> carts;
+    private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        products = await http.GetFromJsonAsync<IEnumerable<ProductListItem>>("/api/product/");
+        carts = await http.GetFromJsonAsync<IEnumerable<CartListItem>>("/api/cart/");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<CartItemCreate>("/api/cartItem", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/cartItem");
+        }
+        else
+        {
+            errorMessage = "Your cartItem could not be created at this moment, please try again later.";
+        }
+
+    }
+
+}

@@ -1,0 +1,55 @@
+﻿@page "/product/create"
+@using FlocityClothingStore.Shared.Models.Product
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Create</h3>
+
+@if (errorMessage !=null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+    <div class="form-group">
+        <label>Name</label>
+        <InputText class="form-control" @bind-Value="model.Name" />
+    </div>
+    <div class="form-group">
+        <label>Description</label>
+        <InputTextArea class="form-control" @bind-Value="model.Description" />
+    </div>
+    <div class="form-group">
+        <label>Size</label>
+        <InputTextArea class="form-control" @bind-Value="model.Size" />
+    </div>
+    <div class="form-group">
+        <label>Price</label>
+        <InputNumber class="form-control" @bind-Value="model.Price" />
+    </div>
+    <div class="form-group">
+         <label>CategoryId</label>
+          <InputNumber class="form-control" @bind-Value="model.CategoryId" />
+     </div>
+    <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
+
+@code {
+    private ProductCreate model = new();
+    private string errorMessage;
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<ProductCreate>("/api/product", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/product");
+        }
+        else
+        {
+            errorMessage = "Product could not be created. Please try again later.";
+        }
+    }
+}

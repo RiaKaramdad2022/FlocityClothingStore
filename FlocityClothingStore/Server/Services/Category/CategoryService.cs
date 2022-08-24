@@ -45,7 +45,9 @@ namespace FlocityClothingStore.Server.Services.Category
             {
                 Id = category.Id,
                 CategoryName = category.CategoryName,
-                Products = category.Products.Select(c => 
+                Products = category.Products
+                .Where(p => p.CategoryId == categoryId)
+                .Select(c => 
                 new ProductListItem
                 {
                     Id = c.Id,

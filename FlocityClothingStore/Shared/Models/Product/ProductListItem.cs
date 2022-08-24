@@ -13,6 +13,7 @@ namespace FlocityClothingStore.Shared.Models.Product
         public string Description { get; set; }
         public double Price { get; set; }
         public string Size { get; set; }
+        public int CategoryId { get; set; }
 
     }
 }

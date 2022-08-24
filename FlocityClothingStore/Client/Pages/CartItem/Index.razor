@@ -1,1 +1,50 @@
-﻿
+﻿@page "/cartItem"
+@using FlocityClothingStore.Shared.Models.CartItem
+@inject HttpClient http
+
+<h3>CartItem</h3>
+<a href="/cartItem/create">Create a cartItem</a>
+@if(_cartItem == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Quantity</th>
+                <th>Size</th>
+                <th>ProductId</th>
+                <th>CartId</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var cartItem in _cartItem)
+            {
+                <tr>
+                    <td><strong>@cartItem.Id</strong></td>
+                    <td><strong>@cartItem.Quantity</strong></td>
+                    <td><strong>@cartItem.Size</strong></td>
+                    <td><strong>@cartItem.ProductId</strong></td>
+                    <td><strong>@cartItem.CartId</strong></td>
+                    <td>
+                        <a href=@($"cartItem/{cartItem.Id}")>Details</a>
+                        <a href=@($"cartItem/edit/{cartItem.Id}")>Edit</a>
+                        <a href=@($"cartItem/delete/{cartItem.Id}")>Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code{
+    private IEnumerable<CartItemListItem> _cartItem;
+    protected override async Task OnInitializedAsync()
+    {
+        _cartItem = await http.GetFromJsonAsync<List<CartItemListItem>>("/api/cartItem");
+    }
+}
