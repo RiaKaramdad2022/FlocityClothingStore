@@ -8,7 +8,6 @@ namespace FlocityClothingStore.Shared.Models.CartItem
 {
     public class CartItemCreate
     {
-        public int Id { get; set; }
         public int CartId { get; set; }
         public int ProductId { get; set; }
         public string Quantity { get; set; }

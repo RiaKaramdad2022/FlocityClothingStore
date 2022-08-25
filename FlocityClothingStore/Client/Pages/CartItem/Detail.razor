@@ -1,30 +1,31 @@
-﻿@page "/category/{CategoryId:int}"
-@using FlocityClothingStore.Shared.Models.Category
+﻿@page "/cartItem/{CartItemId:int}"
+@using FlocityClothingStore.Shared.Models.CartItem
 @inject HttpClient http
 
-<h3>Category #CategoryId</h3>
-@if(Category !=null)
+<h3>CartItem #@CartItemId</h3>
+@if (CartItem != null)
 {
     <div class="container">
         <div class="card">
             <div class="card-header d-flex justify-content-between">
-                <span>Category #Category.Id</span>
+                <span>CartItem #@CartItemId</span>
+                <span class="text-muted"><strong>@CartItem.CartId</strong></span>
+                <span class="text-muted"><strong>@CartItem.Size</strong></span>
+                <span class="text-muted"><stron>@CartItem.Quantity</stron></span>
             </div>
-            <div class="card-body">
-                <h4 class="card-category">CategoryName</h4>
+            <div class="card-footer text-muted d-flex justify-content-between">
+                <span class="text-muted"><strong>@CartItem.ProductId</strong></span>
+                <span class="text-muted"><strong>@CartItem.ProductName</strong></span>
+                <span class="text-muted"><strong>@CartItem.ProductPrice</strong></span>
             </div>
             </div>
-        <div class="de-flex justify-content-center mt-3">
+        <div class="d-flex justify-content-center mt-3">
             <div class="text-center justify-content-between w-25">
-                <a href=@($"/category/edit/{CategoryId}") class="btn btn-outline-primary">Edit</a>
-                <a href=@($"/category/delete/{CategoryId}") class="btn btn-outline-danger">Delete</a>
-                <hr />
-                <a href="/category">Back to Category Index</a>
+                <a href=@($"/customer/edit/{CartItemId}") class="btn btn-outline-danger">Edit</a>
+                <a href=@($"/customer/delete/{CartItemId}") class="btn btn-outline-danger">Delete</a>
             </div>
         </div>
     </div>
-
-
 }
 else
 {
@@ -32,15 +33,13 @@ else
 }
 
 
-
 @code {
     [Parameter]
-    public int CategoryId { get; set; }
-    public CategoryDetail Category { get; set; }
-
+    public int CartItemId { get; set; }
+    public CartItemDetail CartItem { get; set; } = new();
     protected override async Task OnInitializedAsync()
     {
-        Category = await http.GetFromJsonAsync<CategoryDetail>($"/api/category/{CategoryId}");
+        CartItem = await http.GetFromJsonAsync<CartItemDetail>($"/api/cartItem/{CartItemId}");
     }
 
 }

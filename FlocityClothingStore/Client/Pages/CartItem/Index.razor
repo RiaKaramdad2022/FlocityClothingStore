@@ -46,5 +46,6 @@ else
     protected override async Task OnInitializedAsync()
     {
         _cartItem = await http.GetFromJsonAsync<List<CartItemListItem>>("/api/cartItem");
+
     }
 }

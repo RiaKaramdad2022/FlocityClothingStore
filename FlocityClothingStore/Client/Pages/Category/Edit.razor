@@ -1,0 +1,50 @@
+﻿@page "/category/edit/{CategoryId:int}"
+@using FlocityClothingStore.Shared.Models.Category
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Edit Category: @model.CategoryName</h3>
+
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>CategoryId</label>
+            <InputNumber class="form-control" @bind-Value="model.Id" />
+        </div>
+        <div class="form-group">
+            <label>CategoryName</label>
+            <InputText class="form-control" @bind-Value="model.CategoryName" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public int CategoryId { get; set; }
+    private CategoryEdit model = new();
+    private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        model = await http.GetFromJsonAsync<CategoryEdit>($"/api/category/{CategoryId}");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PutAsJsonAsync<CategoryEdit>($"/api/category/edit/{CategoryId}", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo($"/category/{CategoryId}");
+        }
+        else
+        {
+            errorMessage = "We could not update category right now, please try again later.";
+        }
+    }
+}
+

@@ -1,0 +1,50 @@
+﻿@page "/cart/edit/{CartId:int}"
+@using FlocityClothingStore.Shared.Models.Cart
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Edit Cart: @model.CustomerId</h3>
+
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Id</label>
+            <InputNumber class="form-control" @bind-Value="model.Id" />
+        </div>
+        <div class="form-group">
+            <label>CustomerId</label>
+            <InputNumber class="form-control" @bind-Value="model.CustomerId" />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
+
+@code {
+    [Parameter]
+    public int CartId { get; set; }
+    private CartEdit model = new();
+    private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        model = await http.GetFromJsonAsync<CartEdit>($"/api/cart/{CartId}");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PutAsJsonAsync<CartEdit>($"/api/cart/edit/{CartId}", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo($"/cart/{CartId}");
+        }
+        else
+        {
+            errorMessage = "We could not update cart right now, please try again later.";
+        }
+    }
+}
+

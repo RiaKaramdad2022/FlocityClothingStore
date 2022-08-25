@@ -1,0 +1,40 @@
+﻿@page "/cart/create"
+@using FlocityClothingStore.Shared.Models.Cart
+@inject HttpClient http
+@inject NavigationManager navigation
+
+<h3>Create Cart</h3>
+
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>CustomerId</label>
+            <div class="col-sm-10">
+                <InputNumber class="form-control" @bind-Value="model.CustomerId" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
+@code {
+    private CartCreate model = new();
+    private string errorMessage;
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<CartCreate>("/api/cart", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/cart");
+        }
+        else
+        {
+            errorMessage = "Cart could not be created. Please try again later.";
+        }
+    }
+}

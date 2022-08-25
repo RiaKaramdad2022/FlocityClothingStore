@@ -37,7 +37,9 @@ namespace FlocityClothingStore.Server.Services.Cart
         }
         public async Task<CartDetail> GetCartByIdAsync(int cartId)
         {
-            var cart = await _context.Carts.FindAsync(cartId);
+            var cart = await _context.Carts.Include(c => c.Customer)
+                .FirstOrDefaultAsync(c => c.Id == cartId);
+                
             if (cart is null) return null;
 
             return new CartDetail

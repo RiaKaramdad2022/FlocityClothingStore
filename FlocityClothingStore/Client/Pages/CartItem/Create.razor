@@ -11,6 +11,13 @@
 {
     <h5 class="text-danger">@errorMessage</h5>
 }
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+  
+    </EditForm>
+</div>
 
 
 

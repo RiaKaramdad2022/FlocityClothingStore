@@ -1,0 +1,44 @@
+﻿@page "/cart/{CartId:int}"
+@using FlocityClothingStore.Shared.Models.Cart
+@inject HttpClient http
+
+<h3>Cart #@CartId</h3>
+@if (Cart != null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Cart #@CartId</span>
+                <span class="text-muted"><strong>@Cart.CustomerId</strong></span>
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-between">
+                <span class="text-muted"><strong>@Cart.CustomerFullName</strong></span>
+                <span class="text-muted"><strong>@Cart.CustomerEmail</strong></span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <div class="text-center justify-content-between w-25">
+                <a href=@($"/cart/edit/{CartId}") class="btn btn-outline-danger">Edit</a>
+                <a href=@($"/cart/delete/{CartId}") class="btn btn-outline-danger">Delete</a>
+                <hr />
+                <a href="/cart">Back to Cart Index</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p><em>Loading...</em></p>
+}
+
+
+@code {
+    [Parameter]
+    public int CartId { get; set; }
+    public CartDetail Cart { get; set; } = new();
+    protected override async Task OnInitializedAsync()
+    {
+        Cart = await http.GetFromJsonAsync<CartDetail>($"/api/cart/{CartId}");
+    }
+
+}
