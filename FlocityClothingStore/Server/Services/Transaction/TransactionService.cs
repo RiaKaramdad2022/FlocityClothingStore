@@ -44,7 +44,9 @@ namespace FlocityClothingStore.Server.Services.Transaction
 
         public async Task<TransactionDetail> GetTransactionByIdAsync(int transactionId)
         {
-            var transaction = await _context.Transactions.FindAsync(transactionId);
+            var transaction = await _context.Transactions.Include(t => t.Customer)
+                .Include(t => t.Product)
+                .FirstOrDefaultAsync(t => t.Id == transactionId);
 
             if (transaction == null) return null;
 
@@ -55,7 +57,10 @@ namespace FlocityClothingStore.Server.Services.Transaction
                 CustomerId = transaction.CustomerId,
                 Quantity = transaction.Quantity,
                 DateOfTransaction = transaction.DateOfTransaction,
-                ProductPrice = transaction.Product.Price
+                ProductPrice = transaction.Product.Price,
+                ProductDescription = transaction.Product.Description,
+                CustomerEmail = transaction.Customer.Email,
+                CustomerName = transaction.Customer.FullName,
 
             };
             return transacationDetail;

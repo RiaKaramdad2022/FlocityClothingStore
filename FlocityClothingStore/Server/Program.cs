@@ -6,12 +6,13 @@ using FlocityClothingStore.Server.Services.Cart;
 using FlocityClothingStore.Server.Services.Customer;
 using FlocityClothingStore.Server.Services.Product;
 using FlocityClothingStore.Server.Services.Transaction;
-
+using FlocityClothingStore.Server.Services.CartItem;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();

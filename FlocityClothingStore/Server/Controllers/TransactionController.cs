@@ -57,7 +57,6 @@ namespace FlocityClothingStore.Server.Controllers
         {
             var transaction = await _transactionService.GetTransactionByIdAsync(id);
             if (transaction == null) return NotFound();
-            return Ok();
 
             bool wasSucessful = await _transactionService.DeleteTransactionAsync(id);
 

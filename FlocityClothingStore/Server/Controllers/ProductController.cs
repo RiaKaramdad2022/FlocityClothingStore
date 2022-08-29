@@ -54,7 +54,7 @@ namespace FlocityClothingStore.Server.Controllers
             return BadRequest();
         }
 
-        [HttpGet("{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await _productService.GetProductByIdAsync(id);
