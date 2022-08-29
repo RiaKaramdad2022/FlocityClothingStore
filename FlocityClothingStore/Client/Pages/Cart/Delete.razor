@@ -3,7 +3,6 @@
 @inject HttpClient http
 @inject NavigationManager navigation
 
-
 <h3>Cart #@CartId</h3>
 @if (Message != null)
 {
@@ -15,13 +14,14 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <span>Cart #@Cart.Id</span>
+                <span>Cart #@Cart.CustomerId</span>
                 <span class="text-muted"><strong>@Cart.CustomerId</strong></span>
             </div>
-            </div>
+         </div>
         <div class="d-flex justify-content mt-3">
             <div class="text-center justify-content-between w-50">
-                <a href="/customer" class="btn btn-outline-primary">Back to Index</a>
-                <a href="#" @onclick="HandleClick" class="btn btn-danger text-white">Delete Customer!</a>
+                <a href=@($"/cart/edit/{CartId}") class="btn btn-outline-primary">Back to Index</a>
+                <a href="#" @onclick="HandleClick" class="btn btn-danger text-white">Delete Cart!</a>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@ else
     public string Message { get; set; }
     protected override async Task OnInitializedAsync()
     {
-        Cart = await http.GetFromJsonAsync<CartDetail>($"/api/customer/{CartId}");
+        Cart = await http.GetFromJsonAsync<CartDetail>($"/api/cart/{CartId}");
     }
     private async void HandleClick()
     {

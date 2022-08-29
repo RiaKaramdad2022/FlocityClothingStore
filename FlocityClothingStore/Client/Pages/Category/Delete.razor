@@ -1,4 +1,4 @@
-﻿@page "/category/delete/{CartId:int}"
+﻿@page "/category/delete/{CategoryId:int}"
 @using FlocityClothingStore.Shared.Models.Category
 @inject HttpClient http
 @inject NavigationManager navigation
@@ -15,7 +15,7 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <span>Category #@Category.Id</span>
-                <span class="text-muted"><strong>@Category.Id</strong></span>
+                <span class="text-muted"><strong>@Category.CategoryName</strong></span>
             </div>
         </div>
         <div class="d-flex justify-content mt-3">

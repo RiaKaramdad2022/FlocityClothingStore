@@ -11,7 +11,7 @@ namespace FlocityClothingStore.Server.Models
 
         [ForeignKey(nameof(Product))]
         public int ProductId { get; set; }
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
         public string Size { get; set; }
         
         //Many to many relationship

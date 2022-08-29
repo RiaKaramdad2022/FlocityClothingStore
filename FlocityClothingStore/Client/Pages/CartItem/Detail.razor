@@ -10,19 +10,19 @@
             <div class="card-header d-flex justify-content-between">
                 <span>CartItem #@CartItemId</span>
                 <span class="text-muted"><strong>@CartItem.CartId</strong></span>
-                <span class="text-muted"><strong>@CartItem.Size</strong></span>
-                <span class="text-muted"><stron>@CartItem.Quantity</stron></span>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
                 <span class="text-muted"><strong>@CartItem.ProductId</strong></span>
                 <span class="text-muted"><strong>@CartItem.ProductName</strong></span>
                 <span class="text-muted"><strong>@CartItem.ProductPrice</strong></span>
+                <span class="text-muted"><strong>@CartItem.Size</strong></span>
+                <span class="text-muted"><stron>@CartItem.Quantity</stron></span>
             </div>
             </div>
         <div class="d-flex justify-content-center mt-3">
             <div class="text-center justify-content-between w-25">
-                <a href=@($"/customer/edit/{CartItemId}") class="btn btn-outline-danger">Edit</a>
-                <a href=@($"/customer/delete/{CartItemId}") class="btn btn-outline-danger">Delete</a>
+                <a href=@($"/cartItem/edit/{CartItemId}") class="btn btn-outline-danger">Edit</a>
+                <a href=@($"/cartItem/delete/{CartItemId}") class="btn btn-outline-danger">Delete</a>
             </div>
         </div>
     </div>

@@ -1,0 +1,39 @@
+﻿@page "/transaction/edit/{TransactionId:int}"
+@using FlocityClothingStore.Shared.Models.Customer
+@using FlocityClothingStore.Shared.Models.Product
+@using FlocityClothingStore.Shared.Models.Transaction
+@inject HttpClient http
+@inject NavigationManager navigation
+
+
+<h3>Edit Transaction: @model.CustomerId</h3>
+
+
+@code {
+    public int TransactionId { get; set; }
+    private TransactionEdit model = new();
+    private IEnumerable<ProductListItem> products;
+    private IEnumerable<CustomerListItem> customers;
+    private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        model = await http.GetFromJsonAsync<TransactionEdit>($"/api/transaction/{TransactionId}");
+        products = await http.GetFromJsonAsync<IEnumerable<ProductListItem>>("/api/product/");
+        customers = await http.GetFromJsonAsync<IEnumerable<CustomerListItem>>("/api/customer/");
+    }
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PutAsJsonAsync<TransactionEdit>($"/api/transaction/edit/{TransactionId}", model);
+        if(createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo($"/transaction/{TransactionId}");
+        }
+        else
+        {
+            errorMessage = "Could not edit your transaction at the moment, please try again later.";
+        }
+    }
+
+
+
+}

@@ -1,0 +1,56 @@
+﻿@page "/transaction/delete/{TransactionId:int}"
+@using FlocityClothingStore.Shared.Models.Transaction@using FlocityClothingStore.Shared.Models.Customer@inject HttpClient http
+@inject NavigationManager navigation 
+
+<h3>Delete Transaction #@TransactionId?</h3>
+
+@if (Message != null)
+{
+    <h2 class="text-danger">@Message</h2>
+}
+@if(Transaction !=null)
+{
+    <div class="container">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <span>Transaction #@TransactionId</span>
+                <span class="text-muted"><strong>@Transaction.CustomerId</strong></span>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <p><em>Loading...</em></p>
+}
+
+
+
+
+@code {
+    [Parameter]
+    public int TransactionId { get; set; }
+    public TransactionDetail Transaction { get; set; }
+    public string Message { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Transaction = await http.GetFromJsonAsync<TransactionDetail>($"/api/transaction/{TransactionId}");
+    }
+
+    private async void HandleClick()
+    {
+        var deleteRes = await http.DeleteAsync($"/api/transaction/{TransactionId}");
+
+        if (deleteRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/transaction");
+        }
+        else
+        {
+            Message = "Failed to delete your transaction.";
+        }
+    }
+
+}

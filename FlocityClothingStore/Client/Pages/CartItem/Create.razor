@@ -5,8 +5,7 @@
 @using FlocityClothingStore.Shared.Models.Cart
 @inject NavigationManager navigation
 
-
-<h3>Create</h3>
+<h3>Create CartItem</h3>
 @if(errorMessage !=null)
 {
     <h5 class="text-danger">@errorMessage</h5>
@@ -15,22 +14,36 @@
     <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
-  
+        <div class="form-group">
+            <label>Quantity</label>
+            <div class="col-sm-10">
+                <InputNumber class="form-control" @bind-Value="model.Quantity" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>CartId</label>
+            <div class="col-sm-10">
+                <InputNumber class="form-control" @bind-Value="model.CartId" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>ProductId</label>
+            <div class="col-sm-10">
+                <InputNumber class="form-control" @bind-Value="model.ProductId" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Size</label>
+            <div class="col-sm-10">
+                <InputText class="form-control" @bind-Value="model.Size" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
     </EditForm>
 </div>
-
-
-
 @code {
     private CartItemCreate model = new();
-    private IEnumerable<ProductListItem> products;
-    private IEnumerable<CartListItem> carts;
     private string errorMessage;
-    protected override async Task OnInitializedAsync()
-    {
-        products = await http.GetFromJsonAsync<IEnumerable<ProductListItem>>("/api/product/");
-        carts = await http.GetFromJsonAsync<IEnumerable<CartListItem>>("/api/cart/");
-    }
     private async void HandleSubmit()
     {
         var createRes = await http.PostAsJsonAsync<CartItemCreate>("/api/cartItem", model);

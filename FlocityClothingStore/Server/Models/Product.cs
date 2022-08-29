@@ -14,6 +14,7 @@ namespace FlocityClothingStore.Server.Models
         public string Size { get; set; }
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
+        //public string ImageUrl { get; set; }
 
         //Making virtual list to make a junction table for a many to many relationship between the Product and Transactions Table
         public virtual List<Transaction> Transactions { get; set; } = new List<Transaction>();

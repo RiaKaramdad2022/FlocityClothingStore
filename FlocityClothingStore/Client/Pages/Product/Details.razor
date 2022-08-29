@@ -1,32 +1,37 @@
 ﻿@page "/product/{ProductId:int}"
 @using FlocityClothingStore.Shared.Models.Product
+
 @inject HttpClient http
 
 <h3>Product #@ProductId</h3>
 @if (Product != null)
 {
     <div class="container">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between">
-                <span>Product #@ProductId</span>
-                <span class="text-muted"><strong>@Product.Size</strong></span>
-                <span class="text-muted"><strong>@Product.Price</strong></span>
-                <span class="text-muted"><strong>@Product.Name</strong></span>
-                <span class="text-muted"><strong>@Product.Description</strong></span>
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <span>Product #@Product.Id</span>
+                    <span class="text-muted"><strong>@Product.CategoryId</strong></span>
+                    <span class="text-muted"><strong>@Product.CategoryName</strong></span>
+                </div>
+            <div class="card-body">
+                <h4 class="card-title">@Product.Name</h4>
+                <p class="card-text">@Product.Description</p>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
-                <span class="text-muted"><strong>@Product.CategoryId</strong></span>
-                <span class="text-muted"><strong>@Product.CategoryName</strong></span>
+                <span class="text-muted"><strong>@Product.Price</strong></span>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
             <div class="text-center justify-content-between w-25">
                 <a href=@($"/product/edit/{ProductId}") class="btn btn-outline-danger">Edit</a>
                 <a href=@($"/product/delete/{ProductId}") class="btn btn-outline-danger">Delete</a>
+                    <hr />
+                    <a href="/product">Back to Product Index</a>
             </div>
         </div>
     </div>
-}
+
+    }
 else
 {
     <p><em>Loading...</em></p>

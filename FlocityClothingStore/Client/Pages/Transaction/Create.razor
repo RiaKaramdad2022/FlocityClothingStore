@@ -1,11 +1,61 @@
 ﻿@page "/transaction/create"
 @using FlocityClothingStore.Shared.Models.Transaction
+@using FlocityClothingStore.Shared.Models.Product
+@using FlocityClothingStore.Shared.Models.Customer
 @inject HttpClient http
 @inject NavigationManager navigation
 
-
 <h3>Create Transaction</h3>
+@if (errorMessage != null)
+{
+    <h5 class="text-danger">@errorMessage</h5>
+}
+<div class="container">
+    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <div class="form-group">
+            <label>Quantity</label>
+            <div class="col-sm-10">
+                <InputNumber class="form-control" @bind-Value="model.Quantity" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>ProductId</label>
+            <div class="col-sm-10">
+                <InputNumber class="form-control" @bind-Value="model.ProductId" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>CustomerId</label>
+            <div class="col-sm-10">
+                <InputNumber class="form-control" @bind-Value="model.CustomerId" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>TransactionDate</label>
+            <div class="col-sm-10">
+                <InputDate class="form-control" @bind-Value="model.DateOfTransaction" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+    </EditForm>
+</div>
 
 @code {
-
+    private TransactionCreate model = new();
+    private string errorMessage;
+    private async void HandleSubmit()
+    {
+        var createRes = await http.PostAsJsonAsync<TransactionCreate>("/api/transaction", model);
+        if (createRes.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/transaction");
+        }
+        else
+        {
+            errorMessage = "Transaction could not be created. Please try again later.";
+        }
+    }
 }

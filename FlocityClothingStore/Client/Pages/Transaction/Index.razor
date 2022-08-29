@@ -13,9 +13,12 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>ID</th>
                 <th>Quantity</th>
+                <th>CustomerId</th>
+                <th>ProductId</th>
                 <th>DateOfTransaction</th>
+                <th>&nbsp;</th>
             </tr>
 
         </thead>
@@ -25,6 +28,8 @@ else
                 <tr>
                     <td>@transaction.Id</td>
                     <td>@transaction.Quantity</td>
+                    <td>@transaction.CustomerId</td>
+                    <td>@transaction.ProductId</td>
                     <td>@transaction.DateOfTransaction</td>
                 </tr>
             }

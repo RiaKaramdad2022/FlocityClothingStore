@@ -1,5 +1,6 @@
 ﻿@page "/product/edit/{ProductId:int}"
 @using FlocityClothingStore.Shared.Models.Product
+@using FlocityClothingStore.Shared.Models.Category
 @inject HttpClient http
 @inject NavigationManager navigation
 
@@ -41,10 +42,13 @@
     [Parameter]
     public int ProductId { get; set; }
     private ProductEdit model = new();
+    private IEnumerable<CategoryListItem> categories;
     private string errorMessage;
     protected override async Task OnInitializedAsync()
     {
         model = await http.GetFromJsonAsync<ProductEdit>($"/api/product/{ProductId}");
+        categories = await http.GetFromJsonAsync<IEnumerable<CategoryListItem>>("/api/category/");
+
     }
     private async void HandleSubmit()
     {
