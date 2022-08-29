@@ -1,5 +1,6 @@
 ﻿@page "/cart/create"
 @using FlocityClothingStore.Shared.Models.Cart
+@using FlocityClothingStore.Shared.Models.Customer
 @inject HttpClient http
 @inject NavigationManager navigation
 
@@ -16,7 +17,12 @@
         <div class="form-group">
             <label>CustomerId</label>
             <div class="col-sm-10">
-                <InputNumber class="form-control" @bind-Value="model.CustomerId" />
+                <InputSelect class="form-control" @bind-Value="model.CustomerId">
+                    @foreach(var customer in customers)
+                    {
+                        <option value="@customer.Id">@customer.Id</option>
+                    }
+                </InputSelect>
             </div>
         </div>
         <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
@@ -24,7 +30,12 @@
 </div>
 @code {
     private CartCreate model = new();
+    private IEnumerable<CustomerListItem> customers;
     private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await http.GetFromJsonAsync<IEnumerable<CustomerListItem>>("/api/customer/");
+    }
     private async void HandleSubmit()
     {
         var createRes = await http.PostAsJsonAsync<CartCreate>("/api/cart", model);

@@ -26,11 +26,16 @@ else
             @foreach(TransactionListItem transaction in transactions)
             {
                 <tr>
-                    <td>@transaction.Id</td>
-                    <td>@transaction.Quantity</td>
-                    <td>@transaction.CustomerId</td>
-                    <td>@transaction.ProductId</td>
-                    <td>@transaction.DateOfTransaction</td>
+                    <td><strong>@transaction.Id</strong></td>
+                    <td><strong>@transaction.Quantity</strong></td>
+                    <td><strong>@transaction.CustomerId</strong></td>
+                    <td><strong>@transaction.ProductId</strong></td>
+                    <td><strong>@transaction.DateOfTransaction</strong></td>
+                    <td>
+                        <a href=@($"transaction/{transaction.Id}")>Details</a>
+                        <a href=@($"transaction/edit/{transaction.Id}")>Edit</a>
+                        <a href=@($"transaction/delete/{transaction.Id}")>Delete</a>
+                    </td>
                 </tr>
             }
 

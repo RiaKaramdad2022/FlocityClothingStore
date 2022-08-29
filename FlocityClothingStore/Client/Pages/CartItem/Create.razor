@@ -10,40 +10,73 @@
 {
     <h5 class="text-danger">@errorMessage</h5>
 }
-<div class="container">
-    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group">
-            <label>Quantity</label>
-            <div class="col-sm-10">
-                <InputNumber class="form-control" @bind-Value="model.Quantity" />
+@if(products == null)
+{
+    <p><em>Loading...</em></p>
+
+}
+else
+{
+    <div class="container">
+        <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label>Quantity</label>
+                <div class="col-sm-10">
+                    <InputNumber class="form-control" @bind-Value="model.Quantity" />
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label>CartId</label>
-            <div class="col-sm-10">
-                <InputNumber class="form-control" @bind-Value="model.CartId" />
+            <div class="form-group">
+                <label>Cart ID</label>
+                <div class="col-sm-10">
+                    <InputSelect class="form-control" @bind-Value="model.CartId">
+                        @foreach(var cart in carts)
+                        {
+                            <option value="@cart.Id">@cart.Id</option>
+                        }
+                    </InputSelect>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label>ProductId</label>
-            <div class="col-sm-10">
-                <InputNumber class="form-control" @bind-Value="model.ProductId" />
+                <div class="form-group">
+                 <label>Product ID</label>
+                <div class="col-sm-10">
+                    <InputSelect class="form-control" @bind-Value="model.ProductId">
+                        @foreach(var product in products)
+                        {
+                            <option value="@product.Id">@product.Name</option>
+                        }
+                        </InputSelect>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label>Size</label>
-            <div class="col-sm-10">
-                <InputText class="form-control" @bind-Value="model.Size" />
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
-    </EditForm>
-</div>
+            <div class="form-group">
+                <label>Size</label>
+                <div class="col-sm-10">
+                    <InputSelect class="form-control" @bind-Value="model.Size">
+                        <option value="">Pick a size</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                    </InputSelect>
+                </div>
+             </div>
+ 
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+        </EditForm>
+    </div>
+}
+
 @code {
     private CartItemCreate model = new();
+    private IEnumerable<CartListItem> carts;
+    private IEnumerable<ProductListItem> products;
     private string errorMessage;
+    protected override async Task OnInitializedAsync()
+    {
+        products = await http.GetFromJsonAsync<IEnumerable<ProductListItem>>("/api/product/");
+        carts = await http.GetFromJsonAsync<IEnumerable<CartListItem>>("/api/cart/");
+    }
+   
     private async void HandleSubmit()
     {
         var createRes = await http.PostAsJsonAsync<CartItemCreate>("/api/cartItem", model);

@@ -9,20 +9,22 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <span>CartItem #@CartItemId</span>
-                <span class="text-muted"><strong>@CartItem.CartId</strong></span>
+                <span class="text-muted">Cart ID: <strong>@CartItem.CartId</strong></span>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
-                <span class="text-muted"><strong>@CartItem.ProductId</strong></span>
-                <span class="text-muted"><strong>@CartItem.ProductName</strong></span>
-                <span class="text-muted"><strong>@CartItem.ProductPrice</strong></span>
-                <span class="text-muted"><strong>@CartItem.Size</strong></span>
-                <span class="text-muted"><stron>@CartItem.Quantity</stron></span>
+                <span class="text-muted">Product Id: <strong>@CartItem.ProductId</strong></span>
+                <span class="text-muted">Product Name: <strong>@CartItem.ProductName</strong></span>
+                <span class="text-muted"> Product Price: <strong>@CartItem.ProductPrice</strong></span>
+                <span class="text-muted">Product Size: <strong>@CartItem.Size</strong></span>
+                <span class="text-muted">Quantity: <stron>@CartItem.Quantity</stron></span>
             </div>
             </div>
         <div class="d-flex justify-content-center mt-3">
             <div class="text-center justify-content-between w-25">
                 <a href=@($"/cartItem/edit/{CartItemId}") class="btn btn-outline-danger">Edit</a>
                 <a href=@($"/cartItem/delete/{CartItemId}") class="btn btn-outline-danger">Delete</a>
+                <hr />
+                <a href="/cartItem">Back to CartItems</a>
             </div>
         </div>
     </div>

@@ -1,18 +1,20 @@
-﻿@page "/transaction/create"
-@using FlocityClothingStore.Shared.Models.Transaction
+﻿@page "/cartItem/edit/{CartItemId:int}"
+@using FlocityClothingStore.Shared.Models.Cart
+@using FlocityClothingStore.Shared.Models.CartItem
 @using FlocityClothingStore.Shared.Models.Product
-@using FlocityClothingStore.Shared.Models.Customer
 @inject HttpClient http
 @inject NavigationManager navigation
 
-<h3>Create Transaction</h3>
+<h3>Edit CartItem: @model.Size</h3>
+
 @if (errorMessage != null)
 {
     <h5 class="text-danger">@errorMessage</h5>
 }
-@if(products == null)
+@if (products == null)
 {
     <p><em>Loading...</em></p>
+
 }
 else
 {
@@ -27,31 +29,36 @@ else
                 </div>
             </div>
             <div class="form-group">
+                <label>Cart ID</label>
+                <div class="col-sm-10">
+                    <InputSelect class="form-control" @bind-Value="model.CartId">
+                        @foreach (var cart in carts)
+                        {
+                            <option value="@cart.Id">@cart.Id</option>
+                        }
+                    </InputSelect>
+                </div>
+            </div>
+            <div class="form-group">
                 <label>Product ID</label>
                 <div class="col-sm-10">
                     <InputSelect class="form-control" @bind-Value="model.ProductId">
-                        @foreach(var product in products)
+                        @foreach (var product in products)
                         {
-                            <option value="@product.Id">@product.Id</option>
+                            <option value="@product.Id">@product.Name</option>
                         }
                     </InputSelect>
                 </div>
             </div>
             <div class="form-group">
-                <label>CustomerId</label>
+                <label>Size</label>
                 <div class="col-sm-10">
-                    <InputSelect class="form-control" @bind-Value="model.CustomerId">
-                        @foreach(var customer in customers)
-                        {
-                            <option value="@customer.Id">@customer.Id</option>
-                        }
+                    <InputSelect class="form-control" @bind-Value="model.Size">
+                        <option value="">Pick a size</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
                     </InputSelect>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>TransactionDate</label>
-                <div class="col-sm-10">
-                    <InputDate class="form-control" @bind-Value="model.DateOfTransaction" />
                 </div>
             </div>
 
@@ -59,26 +66,37 @@ else
         </EditForm>
     </div>
 }
+
+
+
+
+
+
+
 @code {
-    private TransactionCreate model = new();
+    [Parameter]
+    public int CartItemId { get; set; }
+    private CartItemEdit model = new();
+    private IEnumerable<CartListItem> carts;
     private IEnumerable<ProductListItem> products;
-    private IEnumerable<CustomerListItem> customers;
     private string errorMessage;
     protected override async Task OnInitializedAsync()
     {
+        model = await http.GetFromJsonAsync<CartItemEdit>($"/api/cartItem/{CartItemId}");
         products = await http.GetFromJsonAsync<IEnumerable<ProductListItem>>("/api/product/");
-        customers = await http.GetFromJsonAsync<IEnumerable<CustomerListItem>>("/api/customer/");
+        carts = await http.GetFromJsonAsync<IEnumerable<CartListItem>>("/api/cart/");
+
     }
     private async void HandleSubmit()
     {
-        var createRes = await http.PostAsJsonAsync<TransactionCreate>("/api/transaction", model);
+        var createRes = await http.PutAsJsonAsync<CartItemEdit>($"/api/cartItem/edit/{CartItemId}", model);
         if (createRes.IsSuccessStatusCode)
         {
-            navigation.NavigateTo("/transaction");
+            navigation.NavigateTo($"/cartItem/{CartItemId}");
         }
         else
         {
-            errorMessage = "Transaction could not be created. Please try again later.";
+            errorMessage = "CartItem could not be updated right now, please try again later.";
         }
     }
 }
