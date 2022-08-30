@@ -13,12 +13,12 @@
                 <span class="text-muted">Category: <strong>@Product.CategoryName</strong></span>
             </div>
             <div class="card-body">
-                <h5 class="card-title">Product Size: @Product.Size</h5>
                 <h5 class="card-title">Product Name: @Product.Name</h5>
                 <p class="card-text">Product Description: @Product.Description</p>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
-                <span class="text-left">ProductPrice: @Product.Price</span>
+                <span class="text-left">Product Size: @Product.Size</span>
+                <span class="text-left">Product Price: @Product.Price</span>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
@@ -26,7 +26,7 @@
                 <a href=@($"/product/edit/{ProductId}") class="btn btn-outline-danger">Edit</a>
                 <a href=@($"/product/delete/{ProductId}") class="btn btn-outline-danger">Delete</a>
                     <hr />
-                    <a href="/product">Back to Product Index</a>
+                    <a href="/product">Back to Products</a>
             </div>
         </div>
     </div>

@@ -11,14 +11,15 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <span>Transaction #@Transaction.Id</span>
+                <span class="text-muted">Customer: <strong>@Transaction.CustomerId</strong></span>
                 <span class="text-muted">Customer: <strong>@Transaction.CustomerName</strong></span>
             </div>
             <div class="card-body">
-                <h4 class="card-title">Customer ID: @Transaction.CustomerId</h4>
+                <h4 class="card-title">Product ID: @Transaction.ProductId</h4>
                 <p class="card-text">Product Description: @Transaction.ProductDescription</p>
-                <p class="card-text">Product Price: @Transaction.ProductPrice</p>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
+                <span class="text-muted">Product Price: @Transaction.ProductPrice</span>
                 <span class="text-left">TransactionDate: @Transaction.DateOfTransaction</span>
             </div>
         </div>
@@ -27,7 +28,7 @@
                 <a href=@($"/transaction/edit/{TransactionId}") class="btn btn-outline-primary">Edit</a>
                 <a href=@($"/transaction/delete/{TransactionId}") class="btn btn-outline-danger">Delete</a>
                 <hr />
-                <a href="/note">Back to Transaction Index</a>
+                <a href="/transaction">Back to Transactions</a>
             </div>
         </div>
     </div>

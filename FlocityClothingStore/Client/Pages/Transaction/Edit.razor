@@ -11,38 +11,55 @@
 {
     <h5 class="text-danger">@errorMessage</h5>
 }
-<div class="container">
-    <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <div class="form-group">
-            <label>Quantity</label>
-            <div class="col-sm-10">
-                <InputNumber class="form-control" @bind-Value="model.Quantity" />
+@if(products == null)
+{
+    <p><em>>Loading...</em></p>
+}
+else
+{
+    <div class="container">
+        <EditForm Model="@model" OnValidSubmit="@HandleSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label>Quantity</label>
+                <div class="col-sm-5">
+                    <InputNumber class="form-control" @bind-Value="model.Quantity" />
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label>ProductId</label>
-            <div class="col-sm-10">
-                <InputNumber class="form-control" @bind-Value="model.ProductId" />
+            <div class="form-group">
+                <label>Product ID</label>
+                <div class="col-sm-5">
+                    <InputSelect class="form-control" @bind-Value="model.ProductId">
+                        @foreach(var product in products)
+                        {
+                            <option value="@product.Id">@product.Id</option>
+                        }
+                    </InputSelect>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label>CustomerId</label>
-            <div class="col-sm-10">
-                <InputNumber class="form-control" @bind-Value="model.CustomerId" />
+            <div class="form-group">
+                <label>Customer ID</label>
+                <div class="col-sm-5">
+                    <InputSelect class="form-control" @bind-Value="model.CustomerId">
+                        @foreach(var customer in customers)
+                        {
+                            <option value="@customer.Id">@customer.Id</option>
+                        }
+                    </InputSelect>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label>TransactionDate</label>
-            <div class="col-sm-10">
-                <InputDate class="form-control" @bind-Value="model.DateOfTransaction" />
+            <div class="form-group">
+                <label>Transaction Date</label>
+                <div class="col-sm-5">
+                    <InputDate class="form-control" @bind-Value="model.DateOfTransaction" />
+                </div>
             </div>
-        </div>
 
-        <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
-    </EditForm>
-</div>
+            <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
+        </EditForm>
+    </div>
+}
 
 
 @code {

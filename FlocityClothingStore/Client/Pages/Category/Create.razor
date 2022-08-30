@@ -15,7 +15,9 @@
         <ValidationSummary />
         <div class="form-group">
             <label>CategoryName</label>
-            <InputText class="form-control" @bind-Value="model.CategoryName" />
+            <div class="col-sm-5">
+                <InputText class="form-control" @bind-Value="model.CategoryName" />
+            </div>
         </div>
         <button type="submit" class="btn btn-primary btn-block mt-5">Submit</button>
     </EditForm>
