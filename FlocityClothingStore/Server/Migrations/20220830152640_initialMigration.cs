@@ -134,6 +134,78 @@ namespace FlocityClothingStore.Server.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "CategoryName" },
+                values: new object[,]
+                {
+                    { 1, "Partywear" },
+                    { 2, "Bridal" },
+                    { 3, "Unstitched" },
+                    { 4, "Casual" },
+                    { 5, "Pret" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Email", "FullName" },
+                values: new object[,]
+                {
+                    { 1, "Amber2234@gmail.com", "Amber Smith" },
+                    { 2, "SB455@gmail.com", "Sonia Bachchan" },
+                    { 3, "MdK@gmail.com", "Madiha Kaur" },
+                    { 4, "SadafA@gmail.com", "Sadaf Aslam" },
+                    { 5, "kk@gmail.com", "Floria K" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Carts",
+                columns: new[] { "Id", "CustomerId" },
+                values: new object[,]
+                {
+                    { 1, 5 },
+                    { 2, 4 },
+                    { 3, 3 },
+                    { 4, 2 },
+                    { 5, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "CategoryId", "Description", "Name", "Price", "Size" },
+                values: new object[,]
+                {
+                    { 1, 1, "'Mehendi ki Raat' Ready To Wear Three Piece Luxury Formal Women Suit with hand embroidery on apple green, handcrafted with complementing blue and magenta appliqué, kora, dabka and resham work.", "MEHENDI KI RAAT", 130.0, "M" },
+                    { 2, 2, "The most regal and traditional front open kalidaar in a deep crimson, embellished heavily with zardoze and resham. This kalidar is paired with a matching flary banarsi lehenga.  ", "JAHAN ARA", 239.99000000000001, "M" },
+                    { 3, 3, "Zehrin is a modern straight cut in pink with heavy thread embroidery on neck and sleeves. The sleeves are finished with cutwork and hand crafted tassels.", "ZEHRIN (THREE PIECE)", 77.0, "S" },
+                    { 4, 4, "Loose kurta with embroidery on shoulder, tassel dori on neckline and frill sleeves. ", "SANORITA", 50.0, "M" },
+                    { 5, 5, "katan zari lining embroidered shirt with adda work\r\nKatan zari dupatta with lace Jamawar tehra trouser ", "MALHAAR", 149.99000000000001, "M" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CartItems",
+                columns: new[] { "Id", "CartId", "ProductId", "Quantity", "Size" },
+                values: new object[,]
+                {
+                    { 1, 5, 1, 2, "S" },
+                    { 2, 4, 2, 4, "M" },
+                    { 3, 3, 3, 4, "L" },
+                    { 4, 2, 4, 8, "S" },
+                    { 5, 1, 5, 10, "M" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Transactions",
+                columns: new[] { "Id", "CustomerId", "DateOfTransaction", "ProductId", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2022, 8, 30, 11, 26, 40, 3, DateTimeKind.Local).AddTicks(580), 5, 2 },
+                    { 2, 2, new DateTime(2022, 8, 30, 11, 26, 40, 3, DateTimeKind.Local).AddTicks(615), 4, 4 },
+                    { 3, 3, new DateTime(2022, 8, 30, 11, 26, 40, 3, DateTimeKind.Local).AddTicks(616), 3, 6 },
+                    { 4, 4, new DateTime(2022, 8, 30, 11, 26, 40, 3, DateTimeKind.Local).AddTicks(618), 2, 8 },
+                    { 5, 5, new DateTime(2022, 8, 30, 11, 26, 40, 3, DateTimeKind.Local).AddTicks(620), 1, 10 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartId",
                 table: "CartItems",
