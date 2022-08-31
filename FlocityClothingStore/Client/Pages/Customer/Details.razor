@@ -9,9 +9,9 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <span>Customer #@CustomerId</span>
-                <span class="text-muted">Customer Name: <strong>@Customer.FullName</strong></span>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
+                <span class="text-muted">Customer Name: <strong>@Customer.FullName</strong></span>
                 <span class="text-muted">Customer Email: <strong>@Customer.Email</strong></span>
             </div>
         </div>
@@ -20,7 +20,7 @@
                 <a href=@($"/customer/edit/{CustomerId}") class="btn btn-outline-danger">Edit</a>
                 <a href=@($"/customer/delete/{CustomerId}") class="btn btn-outline-danger">Delete</a>
                 <hr />
-                <a href="/customer">Back to Customer Index</a>
+                <a href="/customer">Back to Customers</a>
             </div>
         </div>
     </div>

@@ -15,17 +15,20 @@
         <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <span>Product #@Product.Id</span>
-                <span class="text-muted"><strong>@Product.CategoryName</strong></span>
+                <span class="text-muted">Category ID: <strong>@Product.CategoryId</strong></span>
+                <span class="text-muted">Category Name: <strong>@Product.CategoryName</strong></span>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Product Name: @Product.Name</h5>
+                <p class="card-text">Product Description: @Product.Description</p>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
-                <span class="text-muted"><strong>@Product.Price</strong></span>
-                <span class="text-muted"><strong>@Product.Size</strong></span>
-                <span class="text-muted"><strong>@Product.CategoryId</strong></span>
-                <span class="text-muted"><strong>@Product.Description</strong></span>
+                <span class="text-muted">Product Price: <strong>@Product.Price</strong></span>
+                <span class="text-muted">Product Size: <strong>@Product.Size</strong></span>
             </div>
         </div>
         <div class="d-flex justify-content mt-3">
-            <div class="text-center justify-content-between w-50">
+            <div class="text-center justify-content-between w-25">
                 <a href="/product" class="btn btn-outline-primary">Back to Products</a>
                 <a href="#" @onclick="HandleClick" class="btn btn-danger text-white">Delete Product!</a>
             </div>

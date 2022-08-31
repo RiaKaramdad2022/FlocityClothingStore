@@ -6,7 +6,7 @@ namespace FlocityClothingStore.Server.Models
     public class Cart
     {
         public int Id { get; set; }
-        //one-to-one relationship therefore no need to add FK on the Customer Table
+        //one-to-one relationship.
         [ForeignKey(nameof(Customer))]
         public int CustomerId { get; set; }
 

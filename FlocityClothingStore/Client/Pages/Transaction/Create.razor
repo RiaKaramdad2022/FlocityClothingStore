@@ -74,10 +74,12 @@ else
         var createRes = await http.PostAsJsonAsync<TransactionCreate>("/api/transaction", model);
         if (createRes.IsSuccessStatusCode)
         {
+            // if the result is a success, then we use the NavigationManager to go back to the transaction Index view
             navigation.NavigateTo("/transaction");
         }
         else
         {
+            //Ohterwise, it will display an error. 
             errorMessage = "Transaction could not be created. Please try again later.";
         }
     }

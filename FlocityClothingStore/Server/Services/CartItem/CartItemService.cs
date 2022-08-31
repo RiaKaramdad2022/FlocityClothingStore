@@ -13,7 +13,8 @@ namespace FlocityClothingStore.Server.Services.CartItem
         {
             _context = context;
         }
-
+        //The create method will take the CartItemCreate model and create a cartItem with it and save that to the database.
+        //This method is an async and returns a bool.
         async Task<bool> ICartItemService.CreateCartItemAsync(CartItemCreate model)
         {
             if (model == null) return false;
@@ -31,6 +32,7 @@ namespace FlocityClothingStore.Server.Services.CartItem
 
         public async Task<IEnumerable<CartItemListItem>> GetAllCartItemsAsync()
         {
+            //we are using the .Select method to convert CarItem objects to the CartItemListItem objects.
             var cartItems = _context.CartItems.Select(ct => new CartItemListItem
             {
                 Id = ct.Id,
@@ -43,14 +45,16 @@ namespace FlocityClothingStore.Server.Services.CartItem
             return await cartItems.ToListAsync();
 
         }
-
+            
         public async Task<CartItemDetail> GetCartItemByIdAsync(int cartId)
         {
+            //in order to view the CartItems, first we can include the Cart and Product associated with the CartItem, using the built-in .Include() method.
             var cartItem = await _context.CartItems.Include(c => c.Cart)
                 .Include( c => c.Product)
                 .FirstOrDefaultAsync(c => c.Id == cartId);
+            //if the CartItem doesn't exist return null
             if (cartItem is null) return null;
-
+            // and if it does, we will return a CartItemDetail object using CartItem properties as well the name of the associated Product.
             return new CartItemDetail
             {
                 Id = cartItem.Id,
