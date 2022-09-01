@@ -36,6 +36,37 @@ main {
         text-overflow: ellipsis;
     }
 
+    .container {
+        background-color: rgb(14, 14, 6) !important;
+    }
+
+    body {
+        background-color: rgb(14, 14, 6) !important;
+        font-family: 'Lobster', sans-serif !important;
+        text-align: center;
+    }
+    .text-black {
+        text-align: center;
+    }
+
+    .header {
+        font-size: 67.5%;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: black;
+        padding: 0;
+        margin: 0;
+    }
+    .pret {
+        background-color: black;
+        border: 1px solid;
+        padding: 10px;
+        font-size: 10px;
+        text-align: center;
+        width: 100vw;
+    }
+    
+
+
 @media (max-width: 640.98px) {
     .top-row:not(.auth) {
         display: none;
@@ -78,33 +109,5 @@ main {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
     }
-    .container {
-        background-color: rgb(14, 14, 6) !important;
-    }
-
-    body {
-        background-color: rgb(14, 14, 6) !important;
-        font-family: 'Lobster', sans-serif !important;
-    }
-    .header {
-        font-size: 67.5%;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: black;
-        padding: 0;
-        margin: 0;
-    }
-
-    body {
-        background-color: rgb(14, 14, 6) !important;
-        font-family: 'Lobster', sans-serif !important;
-    }
-    .pret {
-        background-color: black;
-        border: 1px solid;
-        padding: 10px;
-        font-size: 10px;
-        text-align: center;
-        width: 100vw;
-    }
-
+ 
 }
