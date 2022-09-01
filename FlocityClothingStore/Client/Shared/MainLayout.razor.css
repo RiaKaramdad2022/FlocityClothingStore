@@ -94,44 +94,17 @@ main {
         margin: 0;
     }
 
-    h1 {
-        color: white;
-        font-size: 2em;
-        margin: 0.5em 0 0.5em 0;
-        padding: 0;
+    body {
+        background-color: rgb(14, 14, 6) !important;
+        font-family: 'Lobster', sans-serif !important;
     }
-
-    h4 {
-        color: blue;
-        font-size: 1.7em;
-        padding: 0px;
-        margin: 0.5em 0 0.35em 0;
-    }
-
-    p {
-        font-size: 1.2em;
-        line-height: 1.4em;
-        color: white;
-        padding: 0px;
-        margin-left: -5px;
-    }
-
-    ol {
-        list-style-type: none;
-        margin: 0;
-        padding: 10;
-        overflow: hidden;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 3em;
-        background: #333;
-    }
-
-    a {
-        list-style-type: none;
-        margin: 0;
-        padding: 10;
-        overflow: hidden;
-        font-size: 2em !important;
+    .pret {
+        background-color: black;
+        border: 1px solid;
+        padding: 10px;
+        font-size: 10px;
+        text-align: center;
+        width: 100vw;
     }
 
 }
