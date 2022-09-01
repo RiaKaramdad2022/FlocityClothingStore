@@ -40,7 +40,8 @@ Below diagram shows how data tables’ relationships will look like. It also has
 ### Final Project View
 ![image](https://user-images.githubusercontent.com/105662755/187958591-56466019-eef3-41db-bc04-e94e9001f56d.png)
 ![image](https://user-images.githubusercontent.com/105662755/187958707-58a00a41-c9ca-4949-9f4d-d16138195cd1.png)
-![image](https://user-images.githubusercontent.com/105662755/187958809-ada8d4a6-ca50-4247-8c12-3f6366745a7b.png)
+![image](https://user-images.githubusercontent.com/105662755/187960672-08385b9b-c991-486c-8716-5ee571db16ba.png)
+
 
 
 
