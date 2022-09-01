@@ -34,6 +34,7 @@ We are creating a complete Web Application in two parts - a Server application a
 * Microsoft.EntityFrameworkCore.Tool(6.0.8)
 
 ### Diagram:
-Below diagram shows data tables’ relationships will look like. It has all properties including ForeignKey relationships. 
+Below diagram shows how data tables’ relationships will look like. It also has all properties including ForeignKey relationships. 
 ![image](https://user-images.githubusercontent.com/105662755/187956272-b69506b1-0787-492f-b096-33ef3084f1f8.png)
 
+### Final Project View
