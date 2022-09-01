@@ -12,7 +12,6 @@ namespace FlocityClothingStore.Server.Services.Product
         {
             _context = context;
         }
-
         public async Task<bool> CreateProductAsync(ProductCreate model)
         {
             if (model == null) return false;
@@ -41,7 +40,6 @@ namespace FlocityClothingStore.Server.Services.Product
                 Size = product.Size,
                 CategoryId = product.CategoryId,
 
-
             }).ToListAsync();
             return products;
         }
@@ -61,9 +59,7 @@ namespace FlocityClothingStore.Server.Services.Product
                 Size = product.Size,
                 CategoryId = product.CategoryId,
                 CategoryName = product.Category.CategoryName,
-
             };
-
         }
         public async Task<bool> UpdateProductAsync(ProductEdit model)
         {

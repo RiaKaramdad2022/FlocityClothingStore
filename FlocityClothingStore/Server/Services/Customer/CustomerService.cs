@@ -27,7 +27,6 @@ namespace FlocityClothingStore.Server.Services.Customer
             _context.Customers.Add(customerEntity);
             return await _context.SaveChangesAsync() == 1; 
         }
-
         public async Task<IEnumerable<CustomerListItem>> GetAllCustomersAsync()
         {
             var customers = _context.Customers.Select(customer => new CustomerListItem

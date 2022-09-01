@@ -1,5 +1,7 @@
 ﻿@page "/transaction/delete/{TransactionId:int}"
-@using FlocityClothingStore.Shared.Models.Transaction@using FlocityClothingStore.Shared.Models.Customer@inject HttpClient http
+@using FlocityClothingStore.Shared.Models.Transaction
+@using FlocityClothingStore.Shared.Models.Customer
+@inject HttpClient http
 @inject NavigationManager navigation 
 
 <h3>Delete Transaction #@TransactionId?</h3>

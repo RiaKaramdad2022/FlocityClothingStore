@@ -59,7 +59,6 @@ namespace FlocityClothingStore.Server.Services.Category
                 }).ToList()
             };
         }
-
         public async Task<bool> UpdateCategoryAsync(CategoryEdit model)
         {
             var category = await _context.Categories.FindAsync(model.Id);

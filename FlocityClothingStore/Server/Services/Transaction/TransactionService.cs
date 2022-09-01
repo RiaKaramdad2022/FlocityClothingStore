@@ -12,7 +12,6 @@ namespace FlocityClothingStore.Server.Services.Transaction
         {
             _context = context;
         }
-
         public async Task<bool> CreateTransactionAsync(TransactionCreate model)
         {
             if (model == null) return false;
@@ -80,7 +79,6 @@ namespace FlocityClothingStore.Server.Services.Transaction
                 return true;
             return false;
         }
-
         public async Task<bool> DeleteTransactionAsync(int transactionId)
         {
             var transaction = await _context.Transactions.FindAsync(transactionId);

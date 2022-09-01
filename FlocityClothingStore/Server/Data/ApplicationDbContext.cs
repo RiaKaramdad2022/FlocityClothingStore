@@ -61,10 +61,10 @@ namespace FlocityClothingStore.Server.Data
             modelBuilder.Entity<Product>()
                 .HasData(
                 new Product { Id = 1, Name = "MEHENDI KI RAAT", Description = "'Mehendi ki Raat' Ready To Wear Three Piece Luxury Formal Women Suit with hand embroidery on apple green, handcrafted with complementing blue and magenta appliqué, kora, dabka and resham work.", Price = 130.00, Size = "M", CategoryId = 1 },
-                new Product { Id = 2, Name = "JAHAN ARA", Description = "The most regal and traditional front open kalidaar in a deep crimson, embellished heavily with zardoze and resham. This kalidar is paired with a matching flary banarsi lehenga.  ", Price = 239.99, Size = "M", CategoryId = 2 },
+                new Product { Id = 2, Name = "JAHAN ARA", Description = "The most regal and traditional front open kalidaar in a deep crimson, embellished heavily with zardoze and resham. This kalidar is paired with a matching flary banarsi trouser.  ", Price = 239.99, Size = "M", CategoryId = 2 },
                 new Product { Id = 3, Name = "ZEHRIN (THREE PIECE)", Description = "Zehrin is a modern straight cut in pink with heavy thread embroidery on neck and sleeves. The sleeves are finished with cutwork and hand crafted tassels.", Price = 77.00, Size = "S", CategoryId = 3 },
                 new Product { Id = 4, Name = "SANORITA", Description = "Loose kurta with embroidery on shoulder, tassel dori on neckline and frill sleeves. ", Price = 50.00, Size = "M", CategoryId = 4 },
-                new Product { Id = 5, Name = "MALHAAR", Description = "katan zari lining embroidered shirt with adda work\r\nKatan zari dupatta with lace Jamawar tehra trouser ", Price = 149.99, Size = "M", CategoryId = 5 });
+                new Product { Id = 5, Name = "MALHAAR", Description = "katan zari lining embroidered shirt with adda work,Katan zari dupatta with lace Jamawar tehra trouser ", Price = 149.99, Size = "M", CategoryId = 5 });
 
             modelBuilder.Entity<Transaction>()
              .HasData(
