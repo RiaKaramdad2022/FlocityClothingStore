@@ -8,6 +8,8 @@ namespace FlocityClothingStore.Server.Services.Cart
 {
     public class CartService : ICartService
     {
+        //CartService contain the basic CRUD methods that will interact with the database directly. The Cart Controller will get the 
+        //information from the _cartService rather than talking to the database.
         private ApplicationDbContext _context;
         public CartService(ApplicationDbContext context )
         {

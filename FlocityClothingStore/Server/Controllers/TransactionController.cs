@@ -3,12 +3,17 @@ using FlocityClothingStore.Shared.Models.Transaction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+//The Transaction controller will handle all the HTTP methods for our app. Since our application is separated into Server and Client
+//layers, the Server doesn't send HTML views as result, it sends JSON data and the Client uses that JSON data to build views.
+
 namespace FlocityClothingStore.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class TransactionController : ControllerBase
     {
+        //Created a DI(Dependency Injection) in order to use the Transaction Service.
+    
         private readonly ITransactionService _transactionService;
         public TransactionController(ITransactionService transactionService)
         {

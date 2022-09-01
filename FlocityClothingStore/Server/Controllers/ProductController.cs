@@ -30,12 +30,13 @@ namespace FlocityClothingStore.Server.Controllers
                 return NotFound();
             return Ok(product);
         }
-
+        //The Create endpoint is a POST method that will return an IActionResult. It will take in a ProductCreate model from the request body.
         [HttpPost]
         public async Task<IActionResult> Create(ProductCreate model)
         {
+            //if model is null we will return BadRequst.
             if (model == null) return BadRequest();
-
+            //however, if the result is successful, we will return Ok, but it fails we will return UnprocessableEntity.
             bool wasSuccessful = await _productService.CreateProductAsync(model);
 
             if (wasSuccessful) return Ok();

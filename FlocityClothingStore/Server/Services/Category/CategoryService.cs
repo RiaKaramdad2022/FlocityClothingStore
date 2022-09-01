@@ -10,6 +10,7 @@ namespace FlocityClothingStore.Server.Services.Category
 {
     public class CategoryService : ICategoryService
     {
+        //Our CategoryService talks to the database. CategoryService will deliver data to the Category Controller using the Shared Models. This is the example of Separation of responsibilities.
         private readonly ApplicationDbContext _context;
         public CategoryService(ApplicationDbContext context)
         {
@@ -59,11 +60,15 @@ namespace FlocityClothingStore.Server.Services.Category
                 }).ToList()
             };
         }
+        //The update method will a CategoryEdit model and return a boolean depending on the success of the update attempt.
         public async Task<bool> UpdateCategoryAsync(CategoryEdit model)
         {
+            //First, we will find the categories that are being updated.
+            //If the model is null we will false.
             var category = await _context.Categories.FindAsync(model.Id);
             if (category is null) return false;
-
+            
+            //next, we can make update the Categoryname (the only property we have in the CategoryEdit model).
             category.CategoryName = model.CategoryName;
 
             if (await _context.SaveChangesAsync() == 1)
