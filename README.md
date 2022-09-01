@@ -42,6 +42,9 @@ Below diagram shows how data tables’ relationships will look like. It also has
 ![image](https://user-images.githubusercontent.com/105662755/187958707-58a00a41-c9ca-4949-9f4d-d16138195cd1.png)
 ![image](https://user-images.githubusercontent.com/105662755/187960672-08385b9b-c991-486c-8716-5ee571db16ba.png)
 
+Author 
+Floria Karamdad
+
 
 
 
