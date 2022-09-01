@@ -19,8 +19,8 @@ We are creating a complete Web Application in two parts - a Server application a
 * CSS
 * ASP.NET
 * GitHub
-* Trello( Flocity Clothing Store | Trello)
-* dbdiagram.io(Untitled - dbdiagram.io)
+* Trello(https://trello.com/b/xSo1r7qh/flocity-clothing-store#)
+* dbdiagram.io(https://dbdiagram.io/d/630022d7f1a9b01b0fa8dcd5)
 * SQLServer
 * Azure
 
